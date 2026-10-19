@@ -35,6 +35,7 @@ npm run test:e2e
 - [Inventario SHA-256](docs/inventario-respaldo.json): archivos copiados antes de actualizar este README y añadir la documentación del respaldo.
 - [Validación de la copia](docs/validacion-respaldo.md).
 - [Mi selección](docs/mi-seleccion.md): productos guardados, comparación, consultas y enlaces compartidos.
+- [Comparación CarPlay y revisión de fuentes](docs/comparacion-carplay.md): diferencias publicadas y especificaciones pendientes de identificar por versión.
 
 ## Despliegue
 

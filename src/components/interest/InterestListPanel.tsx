@@ -7,6 +7,7 @@ import { gsap, prefersReducedMotion } from '../../motion/gsap'
 import { Link } from '../../router/Link'
 import { SpecCompare } from '../product/ProductCompare'
 import { Price } from '../showroom/Price'
+import { FeatureCompare } from '../showroom/FeatureCompare'
 import { Icon } from '../ui/Icon'
 import { ProductVisual } from '../visuals/ProductVisual'
 import { useInterestList } from './InterestListContext'
@@ -127,7 +128,9 @@ export function InterestListPanel({ open, onClose }: { open: boolean; onClose: (
             <div onClick={(event) => {
               if ((event.target as Element).closest('a')) closePanel()
             }}>
-              <SpecCompare products={compared} caption="Comparativa de mi selección" />
+              {compared.every((product) => product.category === 'carplay')
+                ? <FeatureCompare products={compared} caption="Comparativa de mi selección CarPlay" />
+                : <SpecCompare products={compared} caption="Comparativa de mi selección" />}
             </div>
           </div>
         ) : selected.length === 0 ? (

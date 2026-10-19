@@ -1,6 +1,9 @@
-import type { CSSProperties } from 'react'
+import { useId, useState, type CSSProperties } from 'react'
+import { whatsappHref } from '../../config/site'
+import { carplayProfile, comparisonNotes, comparisonPriority } from '../../data/carplayComparison'
 import { feature } from '../../data/features'
 import { productPath } from '../../data/catalog'
+import { formatPEN, priceValue } from '../../data/price'
 import type { Product } from '../../data/types'
 import { Link } from '../../router/Link'
 import { Icon } from '../ui/Icon'
@@ -9,7 +12,6 @@ import { ShowroomObject } from './ShowroomObject'
 
 interface Props {
   products: Product[]
-  /** Modelo que se está viendo: se resalta y no enlaza a sí mismo. */
   current?: Product
   caption: string
 }
@@ -19,22 +21,20 @@ interface Row {
   cells: (string | true | null)[]
 }
 
-/**
- * Comparativa con las características del catálogo. Una celda vacía significa
- * que la característica no figura en el catálogo de ese modelo, no que falte.
- */
-export function FeatureCompare({ products, current, caption }: Props) {
-  const rows: Row[] = []
-  const hasScreen = products.some((p) => p.showroom?.screen)
-  if (hasScreen) rows.push({ label: 'Pantalla', cells: products.map((p) => p.showroom?.screen ?? null) })
+function differs(row: Row) {
+  return row.cells.some((cell) => cell !== row.cells[0])
+}
 
-  const labels: string[] = []
-  for (const p of products) {
-    for (const key of p.showroom?.features ?? []) {
-      const { row } = feature(key)
-      if (!labels.includes(row)) labels.push(row)
-    }
+/** Las funciones no publicadas siguen siendo desconocidas, nunca un «No». */
+export function FeatureCompare({ products, current, caption }: Props) {
+  const tableId = useId()
+  const [onlyDifferences, setOnlyDifferences] = useState(true)
+  const carplay = products.length > 0 && products.every((p) => p.category === 'carplay')
+  const rows: Row[] = []
+  if (products.some((p) => p.showroom?.screen)) {
+    rows.push({ label: 'Pantalla', cells: products.map((p) => p.showroom?.screen ?? null) })
   }
+  const labels = [...new Set(products.flatMap((p) => (p.showroom?.features ?? []).map((key) => feature(key).row)))]
   for (const label of labels) {
     rows.push({
       label,
@@ -44,65 +44,106 @@ export function FeatureCompare({ products, current, caption }: Props) {
       }),
     })
   }
+  const differences = rows.filter(differs)
+  const common = rows.filter((row) => !differs(row))
+  const orderedDifferences = [...differences].sort((a, b) => {
+    const order = (label: string) => {
+      const index = comparisonPriority.indexOf(label)
+      return index < 0 ? comparisonPriority.length : index
+    }
+    return order(a.label) - order(b.label)
+  })
+  const visibleRows = carplay ? [...orderedDifferences, ...(onlyDifferences ? [] : common)] : rows
+  const prices = products.map(priceValue).filter((price): price is number => price !== null)
+  const minimum = prices.length > 0 ? Math.min(...prices) : null
+  const samePrice = prices.length === products.length && new Set(prices).size === 1
+  const technicalHref = carplay ? whatsappHref([
+    'Hola, quiero comparar estas pantallas CarPlay:',
+    ...products.map((p) => `• ${p.name}`),
+    '',
+    '¿Me confirman el modelo y versión exactos, resolución y brillo de pantalla, compatibilidad de audio y qué cámaras, sensores y soportes incluye cada kit?',
+  ].join('\n')) : null
 
   return (
     <div className="fcompare">
+      {carplay && <>
+        <div className="fcompare__intro">
+          <div>
+            <p className="fcompare__eyebrow">LO QUE CAMBIA TU ELECCIÓN</p>
+            <p className="fcompare__intro-title">Tamaño, equipamiento y precio.</p>
+            <p className="fcompare__intro-note">Revisa qué aporta cada modelo según sus características publicadas.</p>
+          </div>
+          <label className="fcompare__toggle">
+            <input type="checkbox" checked={onlyDifferences} onChange={(event) => setOnlyDifferences(event.target.checked)} aria-controls={tableId} />
+            Solo diferencias
+          </label>
+        </div>
+        {common.length > 0 && <div className="fcompare__common" aria-label="Características compartidas">
+          <span className="fcompare__common-label">En todos los elegidos</span>
+          {common.map((row) => <span key={row.label} className="fcompare__common-feature"><Icon name="check" />
+            {row.cells[0] === true ? row.label : `${row.label}: ${row.cells[0]}`}
+          </span>)}
+        </div>}
+      </>}
       <div className="fcompare__scroller" tabIndex={0} role="region" aria-label={`${caption}, desplazable horizontalmente`}>
-        <table className="fcompare__table" style={{ '--cols': products.length } as CSSProperties}>
+        <table id={tableId} className="fcompare__table" style={{ '--cols': products.length } as CSSProperties}>
           <caption className="sr-only">{caption}</caption>
           <thead>
             <tr>
               <th scope="col" className="fcompare__corner">
-                <span className="sr-only">Característica</span>
+                {carplay ? <span className="fcompare__corner-label">{onlyDifferences ? 'Diferencias publicadas' : 'Características'}<small>{differences.length} {differences.length === 1 ? 'aspecto a revisar' : 'aspectos a revisar'}</small></span> : <span className="sr-only">Característica</span>}
               </th>
-              {products.map((p) => (
-                <th key={p.slug} scope="col" className={p === current ? 'is-current' : undefined}>
+              {products.map((p) => {
+                const profile = carplay ? carplayProfile(p) : null
+                const price = priceValue(p)
+                return <th key={p.slug} scope="col" className={p === current ? 'is-current' : undefined}>
                   <div className="fcompare__product">
-                    <div className="fcompare__thumb">
-                      <ShowroomObject product={p} size="card" interaction="none" sizes="160px" />
-                    </div>
+                    <div className="fcompare__thumb"><ShowroomObject product={p} size="card" interaction="none" sizes="160px" /></div>
                     <span className="fcompare__name">{p.name}</span>
                     <Price product={p} />
-                    {p === current ? (
-                      <span className="fcompare__here">Estás viendo este modelo</span>
-                    ) : (
-                      <Link to={productPath(p)} className="text-link">
-                        <span>Explorar</span>
-                        <Icon name="arrow" />
-                      </Link>
+                    {carplay && minimum !== null && price !== null && <span className={`fcompare__price-gap ${price === minimum ? 'is-lowest' : ''}`}>
+                      {samePrice ? 'Mismo precio' : price === minimum ? 'Menor precio de esta selección' : `+ ${formatPEN(price - minimum)} frente al menor precio`}
+                    </span>}
+                    {profile && <div className="fcompare__decision"><span>{profile.title}</span><p>{profile.description}</p></div>}
+                    {carplay && p.showroom?.reference && <span className="fcompare__reference">Imagen referencial</span>}
+                    {p === current ? <span className="fcompare__here">Estás viendo este modelo</span> : (
+                      <Link to={productPath(p)} className="text-link"><span>Explorar</span><Icon name="arrow" /></Link>
                     )}
                   </div>
                 </th>
-              ))}
+              })}
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.label}>
-                <th scope="row">{row.label}</th>
+            {visibleRows.map((row) => (
+              <tr key={row.label} className={carplay && differs(row) ? 'fcompare__difference' : undefined}>
+                <th scope="row">{row.label}{carplay && comparisonNotes[row.label] && <small className="fcompare__row-note">{comparisonNotes[row.label]}</small>}</th>
                 {row.cells.map((cell, i) => (
                   <td key={products[i].slug} className={products[i] === current ? 'is-current' : undefined}>
                     {cell === true ? (
                       <span className="fcompare__yes">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
-                        <span className="sr-only">Sí</span>
+                        <span className={carplay ? undefined : 'sr-only'}>{carplay && row.label === 'Base magnética' ? 'Sí, desmontable' : carplay && row.label === 'Control remoto multifuncional' ? 'Mando externo' : 'Sí'}</span>
                       </span>
                     ) : cell === null ? (
-                      <span className="fcompare__none" title="No figura en el catálogo">
-                        <span aria-hidden="true">—</span>
-                        <span className="sr-only">No figura en el catálogo</span>
+                      <span className="fcompare__none" title="Dato sin especificar para este modelo">
+                        {carplay ? 'Por confirmar' : <><span aria-hidden="true">—</span><span className="sr-only">No figura en el catálogo</span></>}
                       </span>
-                    ) : (
-                      cell
-                    )}
+                    ) : cell === 'TPMS' && carplay ? (
+                      <><span>TPMS anunciado</span><small className="fcompare__cell-note">Confirmar sensores del kit</small></>
+                    ) : cell}
                   </td>
                 ))}
               </tr>
             ))}
+            {carplay && visibleRows.length === 0 && <tr><td colSpan={products.length + 1} className="fcompare__matching">Las características publicadas coinciden. Revisa los precios y confirma la versión de cada modelo.</td></tr>}
           </tbody>
         </table>
       </div>
-      <p className="fcompare__legend t-muted">— No figura en el catálogo del modelo. Consúltanos por WhatsApp si necesitas confirmarlo.</p>
+      <p className="fcompare__legend t-muted">{carplay
+        ? 'Por confirmar: consúltanos sobre esa función y el contenido del kit. Las funciones comunes se agrupan arriba.'
+        : '— No figura en el catálogo del modelo. Consúltanos por WhatsApp si necesitas confirmarlo.'}</p>
+      {technicalHref && <div className="fcompare__technical"><p>¿Tu decisión depende del brillo, la resolución o el audio? Te confirmamos la versión exacta de estos modelos.</p><a href={technicalHref} target="_blank" rel="noopener"><Icon name="whatsapp" /> Consultar fichas técnicas <Icon name="external" /></a></div>}
     </div>
   )
 }

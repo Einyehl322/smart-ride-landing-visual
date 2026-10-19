@@ -1406,3 +1406,36 @@
     width: 7.5rem;
   }
 }
+
+/* Diferencias CarPlay: contexto para elegir y funciones comunes agrupadas. */
+.fcompare__intro { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.fcompare__eyebrow { font-size: 0.65rem; letter-spacing: 0.08em; color: var(--c-accent-ink); font-weight: 600; margin-bottom: 0.35rem; }
+.fcompare__intro-title { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.02em; color: var(--c-ink-900); }
+.fcompare__intro-note { font-size: 0.85rem; color: var(--c-slate); margin-top: 0.3rem; }
+.fcompare__toggle { display: inline-flex; align-items: center; gap: 0.6rem; flex-shrink: 0; min-height: 44px; padding: 0.5rem 0.85rem; border: 1px solid var(--c-fog); border-radius: 999px; background: #fff; font-size: 0.8rem; color: var(--c-ink-900); cursor: pointer; }
+.fcompare__toggle input { width: 18px; height: 18px; accent-color: var(--c-accent); }
+.fcompare__common { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; padding: 0.9rem 1rem; margin-bottom: 1rem; background: var(--c-snow); border: 1px solid var(--c-fog); border-radius: 12px; font-size: 0.75rem; color: var(--c-ink-600); }
+.fcompare__common-label { color: var(--c-ink-900); font-weight: 600; }
+.fcompare__common-feature { display: inline-flex; align-items: center; gap: 0.35rem; }
+.fcompare__common-feature svg { width: 15px; height: 15px; color: var(--c-accent); flex-shrink: 0; }
+.fcompare__corner-label { display: grid; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--c-ink-900); }
+.fcompare__corner-label small { font-size: 0.7rem; font-weight: 400; color: var(--c-slate); }
+.fcompare__price-gap { display: inline-block; font-size: 0.7rem; line-height: 1.5; color: var(--c-slate); }
+.fcompare__price-gap.is-lowest { color: var(--c-accent-ink); font-weight: 500; }
+.fcompare__decision { display: grid; gap: 0.55rem; margin-top: 0.3rem; }
+.fcompare__decision > span { justify-self: start; padding: 0.35rem 0.55rem; border-radius: 6px; background: var(--c-accent-soft); color: var(--c-accent-ink); font-size: 0.73rem; line-height: 1.5; font-weight: 500; }
+.fcompare__decision p { font-size: 0.76rem; color: var(--c-ink-600); line-height: 1.55; max-width: 32ch; }
+.fcompare__reference { font-size: 0.64rem; color: var(--c-slate); }
+.fcompare__row-note { display: block; margin-top: 0.4rem; font-size: 0.67rem; line-height: 1.5; font-weight: 400; color: var(--c-slate); }
+.fcompare__difference > th { box-shadow: inset 3px 0 0 var(--c-accent); }
+.fcompare__difference > td { font-weight: 500; }
+.fcompare__yes { display: inline-flex; align-items: center; gap: 0.45rem; }
+.fcompare__yes svg { flex-shrink: 0; }
+.fcompare__difference .fcompare__none { font-size: 0.75rem; font-weight: 400; opacity: 1; }
+.fcompare__cell-note { display: block; margin-top: 0.3rem; font-size: 0.67rem; font-weight: 400; color: var(--c-slate); }
+.fcompare__matching { color: var(--c-slate); font-size: 0.85rem; }
+.fcompare__technical { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; padding: 1rem; margin-top: 1rem; border: 1px solid var(--c-fog); border-radius: 12px; background: var(--c-snow); }
+.fcompare__technical p { flex: 1 1 260px; font-size: 0.78rem; color: var(--c-ink-600); }
+.fcompare__technical a { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 40px; font-size: 0.78rem; color: var(--c-accent-ink); font-weight: 500; }
+.fcompare__technical svg { width: 16px; height: 16px; }
+.fcompare:has(.fcompare__intro) .fcompare__thumb { max-width: 140px; padding: 0.5rem 0.25rem 0.75rem; }

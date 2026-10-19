@@ -8,6 +8,7 @@
  *   que un modelo solo aparezca donde su función está verificada.
  */
 import { getProducts, products } from './catalog'
+import { carplayProfile } from './carplayComparison'
 import { feature } from './features'
 import { priceValue } from './price'
 import type { CategoryId, Product } from './types'
@@ -69,6 +70,7 @@ function specValue(product: Product, label: string) {
  * diferencian (showroom).
  */
 export function keyFacts(product: Product, max = 3): string[] {
+  if (product.category === 'carplay' && product.showroom) return carplayProfile(product).highlights.slice(0, max)
   if (product.showroom) {
     const keys = product.showroom.features
     const tags = keys.filter((k) => feature(k).tag)
