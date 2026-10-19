@@ -123,6 +123,8 @@
 }
 
 .cross__link {
+  min-width: 0;
+  container-type: inline-size;
   display: grid;
   gap: 0.75rem;
   justify-items: start;
@@ -137,10 +139,13 @@
 }
 
 .cross__title {
-  font-size: var(--fs-h2);
+  min-width: 0;
+  max-width: 100%;
+  font-size: clamp(1.8rem, 10cqi, var(--fs-h2));
   line-height: var(--lh-h2);
   letter-spacing: var(--tracking-tight);
   font-weight: var(--fw-semibold);
+  overflow-wrap: anywhere;
 }
 
 .cross__body {
