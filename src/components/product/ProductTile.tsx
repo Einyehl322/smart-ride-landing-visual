@@ -86,6 +86,8 @@ export function ProductTile({ product, shared, compare, sizes = '(min-width: 110
             {product.name}
           </Link>
         </Heading>
+        {product.positioning && <p className="ptile__promise">{product.tagline}</p>}
+        {product.positioning?.checkBeforeBuying && <p className="ptile__verification">{product.positioning.checkBeforeBuying}</p>}
         {facts.length ? (
           <ul className="ptile__facts" aria-label="Datos clave">
             {facts.map((f) => (

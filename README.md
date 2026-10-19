@@ -36,6 +36,7 @@ npm run test:e2e
 - [Validación de la copia](docs/validacion-respaldo.md).
 - [Mi selección](docs/mi-seleccion.md): productos guardados, comparación, consultas y enlaces compartidos.
 - [Comparación CarPlay y revisión de fuentes](docs/comparacion-carplay.md): diferencias publicadas y especificaciones pendientes de identificar por versión.
+- [Beneficios y diferencias de los 18 productos](docs/beneficios-productos.md): mensajes comerciales, respaldo y condiciones para elegir.
 
 ## Despliegue
 

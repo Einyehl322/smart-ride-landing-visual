@@ -1063,3 +1063,13 @@
     white-space: normal;
   }
 }
+
+/* Beneficios vinculados a un dato que permite decidir. */
+.benefit__proof { display: flex; align-items: flex-start; gap: 0.5rem; padding-top: 0.85rem; margin-top: 1rem; border-top: 1px solid var(--line); color: var(--fg-muted); font-size: 0.76rem; line-height: 1.6; }
+.benefit__proof svg { flex: 0 0 16px; width: 16px; height: 16px; margin-top: 0.15rem; color: var(--accent-fg); }
+.product-evidence { padding: 1.1rem 1.25rem; border: 1px solid var(--line); border-radius: 14px; margin-top: 1.5rem; color: var(--fg-muted); font-size: 0.82rem; }
+.product-evidence summary { min-height: 30px; color: var(--fg); font-weight: 500; cursor: pointer; }
+.product-evidence p { margin-top: 0.75rem; max-width: 85ch; }
+.product-evidence a { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 40px; margin: 0.5rem 1.25rem 0 0; color: var(--accent-fg); }
+.product-evidence a svg { width: 14px; height: 14px; }
+.specs__verification { display: block; color: var(--fg-muted); font-size: 0.7rem; margin-top: 0.3rem; }

@@ -14,6 +14,7 @@ import { media, productMedia } from './media'
 import type { Category, CategoryId, Product, SpecCell, SpecGroup, Visual } from './types'
 import { spec, specPending, specDiscrepancy } from './types'
 import { accessoryProducts, carplayProducts } from './showroom'
+import { positionCatalogue } from './productPositioning'
 
 /* ---------- visuales compartidos ---------- */
 
@@ -205,16 +206,16 @@ const v12Earphone: Product = {
     { title: spec('Diseño llamativo'), body: spec('Iluminación RGB que te distingue en el grupo y aumenta tu visibilidad.') },
   ],
   specs: intercomSpecs({
-    bluetooth: spec('Bluetooth 5.3'),
-    alcance: spec('Hasta 10 m (audio desde el teléfono)'),
+    bluetooth: specPending('Valor anterior: Bluetooth 5.3. Sin fuente trazable para esta versión V12; confirmar la unidad disponible.'),
+    alcance: specPending('Valor anterior: hasta 10 m de audio desde el teléfono. Confirmar en ficha de la versión V12 disponible.'),
     participantes: spec('1 usuario (audífono individual)'),
     autonomiaIntercom: spec('No aplica — es audífono, no intercomunicador'),
-    autonomiaMusica: spec('Hasta 12 h'),
-    carga: spec('USB-C, ~1.5 h'),
-    resistencia: spec('IP55'),
+    autonomiaMusica: specPending('Valor anterior: hasta 12 h. Confirmar mediante manual o ficha de proveedor del V12 exacto.'),
+    carga: specPending('Valor anterior: USB-C, ~1.5 h. Confirmar conexión y tiempo de carga de la unidad.'),
+    resistencia: specPending('Valor anterior: IP55. No se encontró una ficha primaria asociable a la unidad V12 disponible.'),
     peso: specPending('No disponible — verificar con manual'),
-    montaje: spec('Clip / abrazadera al casco'),
-    reduccionRuido: spec('Sí (pasiva)'),
+    montaje: specPending('Valor anterior: clip / abrazadera. Confirmar soporte incluido para el V12 disponible.'),
+    reduccionRuido: specPending('Valor anterior: sí (pasiva). Confirmar prestaciones de audio de la versión V12.'),
   }),
   gallery: [
     { visual: v12Visual, caption: 'Vista general' },
@@ -224,8 +225,8 @@ const v12Earphone: Product = {
   ],
   faqs: [
     { question: '¿El V12 permite comunicarme con otro motociclista?', answer: spec('No. El V12 es un audífono Bluetooth individual para escuchar música y atender llamadas desde tu teléfono. No tiene función de intercomunicador.') },
-    { question: '¿Puedo usarlo para GPS y música al mismo tiempo?', answer: spec('Sí. El audio de la navegación se mezcla con la música automáticamente.') },
-    { question: '¿Es resistente a la lluvia?', answer: spec('Sí, certificación IP55: protegido contra polvo y chorros de agua.') },
+    { question: '¿Puedo usarlo para GPS y música al mismo tiempo?', answer: spec('Confirma con nosotros el comportamiento de audio de la versión disponible y su compatibilidad con tu teléfono.') },
+    { question: '¿Es resistente a la lluvia?', answer: spec('Consúltanos por la resistencia declarada de la unidad disponible. La clasificación IP del V12 está pendiente de confirmar.') },
     { question: '¿Qué incluye la caja?', answer: specPending('Verificar contenido con el producto físico.') },
     { question: '¿Cómo puedo consultar precio y disponibilidad?', answer: spec('Escríbenos desde el botón de consulta y te responderemos con la información actualizada.') },
   ],
@@ -270,7 +271,7 @@ const ejeasQ8: Product = {
     participantes: spec('Hasta 6 usuarios (Mesh)'),
     autonomiaIntercom: spec('9 h Mesh / 17 h BT'),
     autonomiaMusica: spec('Hasta 29 h'),
-    carga: spec('2 h'),
+    carga: specDiscrepancy('2 h', 'Catálogo local: 2 h. Ficha oficial EJEAS Q8 consultada el 19/10/2026: 40–45 min. Confirmar versión y condiciones de carga de la unidad disponible.'),
     resistencia: spec('IP67'),
     peso: specPending('No disponible — verificar con manual'),
     montaje: spec('Clip / abrazadera al casco'),
@@ -481,7 +482,7 @@ const ejeasV6ProPlus: Product = {
 
 /* ---------- exportar catálogo ---------- */
 
-export const products: Product[] = [
+export const products: Product[] = positionCatalogue([
   y13Pro,
   freedConnHero,
   s7Pro,
@@ -493,7 +494,7 @@ export const products: Product[] = [
   ejeasV6ProPlus,
   ...carplayProducts,
   ...accessoryProducts,
-]
+])
 
 /* ---------- consultas ---------- */
 

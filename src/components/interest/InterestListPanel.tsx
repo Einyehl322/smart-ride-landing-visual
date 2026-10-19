@@ -128,8 +128,8 @@ export function InterestListPanel({ open, onClose }: { open: boolean; onClose: (
             <div onClick={(event) => {
               if ((event.target as Element).closest('a')) closePanel()
             }}>
-              {compared.every((product) => product.category === 'carplay')
-                ? <FeatureCompare products={compared} caption="Comparativa de mi selección CarPlay" />
+              {compared.every((product) => Boolean(product.showroom))
+                ? <FeatureCompare products={compared} caption={`Comparativa de mi selección ${compared[0].category === 'carplay' ? 'CarPlay' : 'TPMS'}`} />
                 : <SpecCompare products={compared} caption="Comparativa de mi selección" />}
             </div>
           </div>
@@ -176,6 +176,7 @@ export function InterestListPanel({ open, onClose }: { open: boolean; onClose: (
                       <div className="ilist__item-info">
                         <span className="ilist__category">{productCategoryLabel(product)}</span>
                         <Link to={productPath(product)} onClick={closePanel}><h3>{product.name}</h3></Link>
+                        {product.positioning && <p className="ilist__promise">{product.tagline}</p>}
                         <Price product={product} />
                         {product.showroom?.reference && <span className="ilist__reference">Imagen referencial</span>}
                       </div>

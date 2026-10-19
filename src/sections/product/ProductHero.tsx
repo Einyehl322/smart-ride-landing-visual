@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { InterestToggleButton } from '../../components/interest/InterestToggleButton'
+import { ProductChoice } from '../../components/product/ProductChoice'
 import { Price } from '../../components/showroom/Price'
 import { ContactActions } from '../../components/ui/ContactActions'
 import { Icon } from '../../components/ui/Icon'
@@ -93,6 +94,7 @@ export function ProductHero({ product }: { product: Product }) {
           </h1>
           <p className="phero__tagline">{product.tagline}</p>
           <p className="phero__summary">{product.summary}</p>
+          <ProductChoice product={product} />
           {facts.length ? (
             <ul className="phero__facts" aria-label="Datos clave">
               {facts.map((f) => (

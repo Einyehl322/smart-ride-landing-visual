@@ -160,3 +160,5 @@
     font-size: 0.95rem;
   }
 }
+.compare__product .product-choice { margin-block: 0.35rem; }
+.compare__verification { display: block; margin-top: 0.4rem; color: var(--c-slate); font-size: 0.68rem; font-weight: 400; }

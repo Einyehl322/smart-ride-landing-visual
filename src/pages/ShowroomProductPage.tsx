@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { InterestToggleButton } from '../components/interest/InterestToggleButton'
 import { ProductTile } from '../components/product/ProductTile'
+import { ProductChoice } from '../components/product/ProductChoice'
 import '../components/product/product-tile.css'
 import { FeatureCompare } from '../components/showroom/FeatureCompare'
 import { FeatureIcon } from '../components/showroom/FeatureIcon'
@@ -19,6 +20,7 @@ import { Link } from '../router/Link'
 import { useRouter } from '../router/context'
 import { usePageMeta } from '../router/usePageMeta'
 import { MobileBuyBar } from '../sections/product/MobileBuyBar'
+import { ProductBenefits } from '../sections/product/ProductBenefits'
 import { ProductFaq } from '../sections/product/ProductFaq'
 import { ProductGallery } from '../sections/product/ProductGallery'
 
@@ -108,6 +110,7 @@ export function ShowroomProductPage({ product }: { product: Product }) {
               {product.name}
             </h1>
             <p className="spot__tagline">{product.tagline}</p>
+            <ProductChoice product={product} />
             <Price product={product} size="xl" />
             <ul className="spot__tags" aria-label="Características destacadas">
               {features
@@ -132,11 +135,13 @@ export function ShowroomProductPage({ product }: { product: Product }) {
         </div>
       </section>
 
+      <ProductBenefits product={product} />
+
       <section id="caracteristicas" className="spot-section section" data-scheme="light" aria-labelledby="features-title">
         <div className="container">
           <p className="eyebrow" data-reveal>Características</p>
           <h2 id="features-title" className="t-h2 spot-section__title" data-reveal>
-            Lo que incluye el {product.name}
+            Las funciones del {product.name}
           </h2>
           <ul className="spot-features">
             {features.map((key) => (

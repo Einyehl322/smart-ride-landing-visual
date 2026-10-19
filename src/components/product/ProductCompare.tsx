@@ -5,6 +5,7 @@ import { Price } from '../showroom/Price'
 import { Icon } from '../ui/Icon'
 import { DemoBadge, Pending } from '../ui/Placeholders'
 import { ProductVisual } from '../visuals/ProductVisual'
+import { ProductChoice } from './ProductChoice'
 import './compare.css'
 
 /** Una fila del comparador: etiqueta + un valor por producto. */
@@ -40,6 +41,7 @@ function Cell({ product, row, cell }: { product: Product; row: CompareRow; cell:
     )
   }
   if (cell.status === 'pending') return <Pending />
+  if (cell.status === 'discrepancy') return <span>{cell.display}<small className="compare__verification">Dato de catálogo · confirmar versión</small></span>
   return <>{cell.display}</>
 }
 
@@ -99,6 +101,7 @@ export function SpecCompare({ products: list, current, caption = 'Comparativa de
                     </Link>
                     <span className="compare__name">{p.name}</span>
                     <span className="compare__category">{productCategoryLabel(p)}</span>
+                    <ProductChoice product={p} compact />
                     {p.isDemo && <DemoBadge>Fotos pendientes</DemoBadge>}
                     {p === current ? (
                       <span className="compare__here">Estás viendo este modelo</span>

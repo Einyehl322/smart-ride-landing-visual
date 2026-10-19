@@ -70,6 +70,7 @@ function specValue(product: Product, label: string) {
  * diferencian (showroom).
  */
 export function keyFacts(product: Product, max = 3): string[] {
+  if (product.positioning) return product.positioning.facts.slice(0, max)
   if (product.category === 'carplay' && product.showroom) return carplayProfile(product).highlights.slice(0, max)
   if (product.showroom) {
     const keys = product.showroom.features

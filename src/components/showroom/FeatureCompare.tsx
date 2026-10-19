@@ -8,6 +8,7 @@ import type { Product } from '../../data/types'
 import { Link } from '../../router/Link'
 import { Icon } from '../ui/Icon'
 import { Price } from './Price'
+import { ProductChoice } from '../product/ProductChoice'
 import { ShowroomObject } from './ShowroomObject'
 
 interface Props {
@@ -30,6 +31,7 @@ export function FeatureCompare({ products, current, caption }: Props) {
   const tableId = useId()
   const [onlyDifferences, setOnlyDifferences] = useState(true)
   const carplay = products.length > 0 && products.every((p) => p.category === 'carplay')
+  const positioned = products.length > 0 && products.every((p) => p.positioning)
   const rows: Row[] = []
   if (products.some((p) => p.showroom?.screen)) {
     rows.push({ label: 'Pantalla', cells: products.map((p) => p.showroom?.screen ?? null) })
@@ -53,7 +55,7 @@ export function FeatureCompare({ products, current, caption }: Props) {
     }
     return order(a.label) - order(b.label)
   })
-  const visibleRows = carplay ? [...orderedDifferences, ...(onlyDifferences ? [] : common)] : rows
+  const visibleRows = positioned ? [...orderedDifferences, ...(onlyDifferences ? [] : common)] : rows
   const prices = products.map(priceValue).filter((price): price is number => price !== null)
   const minimum = prices.length > 0 ? Math.min(...prices) : null
   const samePrice = prices.length === products.length && new Set(prices).size === 1
@@ -66,12 +68,12 @@ export function FeatureCompare({ products, current, caption }: Props) {
 
   return (
     <div className="fcompare">
-      {carplay && <>
+      {positioned && <>
         <div className="fcompare__intro">
           <div>
             <p className="fcompare__eyebrow">LO QUE CAMBIA TU ELECCIÓN</p>
-            <p className="fcompare__intro-title">Tamaño, equipamiento y precio.</p>
-            <p className="fcompare__intro-note">Revisa qué aporta cada modelo según sus características publicadas.</p>
+            <p className="fcompare__intro-title">{carplay ? 'Elige lo que suma a tu ruta.' : 'Compara lo que ganas por tu inversión.'}</p>
+            <p className="fcompare__intro-note">Revisa para quién conviene cada equipo y los datos que respaldan su propuesta.</p>
           </div>
           <label className="fcompare__toggle">
             <input type="checkbox" checked={onlyDifferences} onChange={(event) => setOnlyDifferences(event.target.checked)} aria-controls={tableId} />
@@ -91,7 +93,7 @@ export function FeatureCompare({ products, current, caption }: Props) {
           <thead>
             <tr>
               <th scope="col" className="fcompare__corner">
-                {carplay ? <span className="fcompare__corner-label">{onlyDifferences ? 'Diferencias publicadas' : 'Características'}<small>{differences.length} {differences.length === 1 ? 'aspecto a revisar' : 'aspectos a revisar'}</small></span> : <span className="sr-only">Característica</span>}
+                {positioned ? <span className="fcompare__corner-label">{onlyDifferences ? 'Diferencias publicadas' : 'Características'}<small>{differences.length} {differences.length === 1 ? 'aspecto a revisar' : 'aspectos a revisar'}</small></span> : <span className="sr-only">Característica</span>}
               </th>
               {products.map((p) => {
                 const profile = carplay ? carplayProfile(p) : null
@@ -101,10 +103,11 @@ export function FeatureCompare({ products, current, caption }: Props) {
                     <div className="fcompare__thumb"><ShowroomObject product={p} size="card" interaction="none" sizes="160px" /></div>
                     <span className="fcompare__name">{p.name}</span>
                     <Price product={p} />
-                    {carplay && minimum !== null && price !== null && <span className={`fcompare__price-gap ${price === minimum ? 'is-lowest' : ''}`}>
+                    {positioned && minimum !== null && price !== null && <span className={`fcompare__price-gap ${price === minimum ? 'is-lowest' : ''}`}>
                       {samePrice ? 'Mismo precio' : price === minimum ? 'Menor precio de esta selección' : `+ ${formatPEN(price - minimum)} frente al menor precio`}
                     </span>}
-                    {profile && <div className="fcompare__decision"><span>{profile.title}</span><p>{profile.description}</p></div>}
+                    {profile && <div className="fcompare__decision"><span>{profile.title}</span><ProductChoice product={p} compact /></div>}
+                    {!profile && p.positioning && <ProductChoice product={p} compact />}
                     {carplay && p.showroom?.reference && <span className="fcompare__reference">Imagen referencial</span>}
                     {p === current ? <span className="fcompare__here">Estás viendo este modelo</span> : (
                       <Link to={productPath(p)} className="text-link"><span>Explorar</span><Icon name="arrow" /></Link>
@@ -116,7 +119,7 @@ export function FeatureCompare({ products, current, caption }: Props) {
           </thead>
           <tbody>
             {visibleRows.map((row) => (
-              <tr key={row.label} className={carplay && differs(row) ? 'fcompare__difference' : undefined}>
+              <tr key={row.label} className={positioned && differs(row) ? 'fcompare__difference' : undefined}>
                 <th scope="row">{row.label}{carplay && comparisonNotes[row.label] && <small className="fcompare__row-note">{comparisonNotes[row.label]}</small>}</th>
                 {row.cells.map((cell, i) => (
                   <td key={products[i].slug} className={products[i] === current ? 'is-current' : undefined}>
@@ -136,7 +139,7 @@ export function FeatureCompare({ products, current, caption }: Props) {
                 ))}
               </tr>
             ))}
-            {carplay && visibleRows.length === 0 && <tr><td colSpan={products.length + 1} className="fcompare__matching">Las características publicadas coinciden. Revisa los precios y confirma la versión de cada modelo.</td></tr>}
+            {positioned && visibleRows.length === 0 && <tr><td colSpan={products.length + 1} className="fcompare__matching">Las funciones publicadas coinciden. Compara el precio y confirma qué cambia en el kit antes de elegir.</td></tr>}
           </tbody>
         </table>
       </div>

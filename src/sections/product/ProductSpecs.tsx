@@ -38,7 +38,7 @@ export function ProductSpecs({ product }: { product: Product }) {
             Ficha técnica
           </h2>
           {missing ? (
-            <Pending block label="Las especificaciones se publicarán con los datos oficiales del fabricante. No mostramos valores sin verificar." />
+            <Pending block label="Hay datos por confirmar para esta versión. Consúltanos por las especificaciones que necesitas antes de elegir." />
           ) : null}
         </div>
         <div className="specs__groups">
@@ -51,6 +51,7 @@ export function ProductSpecs({ product }: { product: Product }) {
                     <dt>{item.label}</dt>
                     <dd>
                       <Maybe value={item.value} />
+                      {item.value?.status === 'discrepancy' && <small className="specs__verification">Dato de catálogo · confirmar versión</small>}
                     </dd>
                   </div>
                 ))}

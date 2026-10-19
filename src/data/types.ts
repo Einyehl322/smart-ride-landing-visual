@@ -162,6 +162,16 @@ export interface Product {
   badge?: string
   tagline: string
   summary: string
+  /** Beneficios para elegir el modelo, vinculados a datos y condiciones publicados. */
+  positioning?: {
+    audience: string
+    reason: string
+    facts: string[]
+    benefits: { title: string; body: string; evidence: string }[]
+    conditions?: string
+    checkBeforeBuying?: string
+    sources?: { title: string; url: string }[]
+  }
   theme: {
     /** Fondo del universo del producto. */
     bg: string

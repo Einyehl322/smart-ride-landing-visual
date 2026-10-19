@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { Maybe } from '../../components/ui/Placeholders'
+import { Icon } from '../../components/ui/Icon'
 import type { Product } from '../../data/types'
 import { gsap, MQ, revealOnEnter, useGSAP } from '../../motion/gsap'
 import './product.css'
@@ -32,7 +33,7 @@ export function ProductBenefits({ product }: { product: Product }) {
           <div className="section-head__copy">
             <p className="eyebrow">Beneficios principales</p>
             <h2 id="pbenefits-title" className="t-h2">
-              Lo que cambia en cada viaje.
+              Lo que ganas en cada salida.
             </h2>
           </div>
         </header>
@@ -48,9 +49,16 @@ export function ProductBenefits({ product }: { product: Product }) {
                   <Maybe value={b.body} />
                 </p>
               ) : null}
+              {product.positioning?.benefits[i]?.evidence && <p className="benefit__proof"><Icon name="check" />{product.positioning.benefits[i].evidence}</p>}
             </li>
           ))}
         </ol>
+        {product.positioning && <details className="product-evidence">
+          <summary>Datos y condiciones para elegir</summary>
+          {product.positioning.conditions && <p>{product.positioning.conditions}</p>}
+          {product.positioning.sources?.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noopener">{source.title}<Icon name="external" /></a>)}
+          {!product.positioning.sources?.length && <p>Los datos numéricos corresponden al catálogo SMART RIDE. Te confirmamos versión, compatibilidad y contenido del kit antes de comprar.</p>}
+        </details>}
       </div>
     </section>
   )
