@@ -2,6 +2,9 @@
    Home
    ========================================================= */
 
+.favorites__actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 1rem 1.5rem; }
+@media (max-width: 699px) { .favorites__actions { justify-content: flex-start; } }
+
 /* ---------- categorías destacadas ---------- */
 
 .chooser {

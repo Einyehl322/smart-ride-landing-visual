@@ -3,6 +3,7 @@ import { ProductTile } from '../../components/product/ProductTile'
 import { Icon } from '../../components/ui/Icon'
 import { categoryPath, getProducts } from '../../data/catalog'
 import { favorites } from '../../data/merchandising'
+import { sortProducts, type ProductSort } from '../../data/productOrder'
 import { EASE, gsap, MQ, prefersReducedMotion, revealOnEnter, useGSAP } from '../../motion/gsap'
 import { Link } from '../../router/Link'
 import { useRouter } from '../../router/context'
@@ -19,7 +20,9 @@ export function Favorites() {
   const ref = useRef<HTMLElement>(null)
   const { nav } = useRouter()
   const [active, setActive] = useState(0)
+  const [sort, setSort] = useState<ProductSort>('price-asc')
   const tab = tabs[active]
+  const list = sortProducts(tab.products, sort)
   const total = getProducts(tab.id).length
 
   useGSAP(
@@ -55,7 +58,7 @@ export function Favorites() {
       { autoAlpha: 0, y: 20 },
       { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.05, ease: EASE.snappy, overwrite: true },
     )
-  }, [active])
+  }, [active, sort])
 
   const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
     const dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
@@ -77,12 +80,21 @@ export function Favorites() {
             </h2>
             <p>Una selección de cada categoría, con precio en soles y consulta directa.</p>
           </div>
-          <Link to={categoryPath(tab.id)} className="text-link">
-            <span>
-              Ver {total === tab.products.length ? 'la categoría' : `los ${total} modelos`}
-            </span>
-            <Icon name="arrow" />
-          </Link>
+          <div className="favorites__actions">
+            <label className="sort">
+              <span className="sr-only">Ordenar favoritos</span>
+              <select value={sort} onChange={(e) => setSort(e.target.value as ProductSort)}>
+                <option value="featured">Orden del catálogo</option>
+                <option value="price-asc">Precio: menor a mayor</option>
+                <option value="price-desc">Precio: mayor a menor</option>
+              </select>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+            </label>
+            <Link to={categoryPath(tab.id)} className="text-link">
+              <span>Ver {total === tab.products.length ? 'la categoría' : `los ${total} modelos`}</span>
+              <Icon name="arrow" />
+            </Link>
+          </div>
         </header>
 
         <div className="tabs" role="tablist" aria-label="Categorías de favoritos" onKeyDown={onKey}>
@@ -106,7 +118,7 @@ export function Favorites() {
 
         <div id="fav-panel" role="tabpanel" aria-labelledby={`fav-tab-${tab.id}`}>
           <ul className="tile-grid">
-            {tab.products.map((p) => (
+            {list.map((p) => (
               <li key={p.slug}>
                 <ProductTile product={p} shared />
               </li>

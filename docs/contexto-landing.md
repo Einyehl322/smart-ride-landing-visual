@@ -55,6 +55,8 @@ Los audífonos `helmet-audio` no deben anunciar comunicación de grupo; el redis
 
 Las nueve luces conservan fotos y datos de la página 5 de `SMART_RIDE_CATALOGO_PRO.pdf`, accesible como `public/catalogo-exploradoras.pdf`. Los dos agotados se marcan según el catálogo. Lúmenes, compatibilidad y modos se presentan con sus límites; los cuatro modos de las variantes de cuatro y cinco ojos necesitan confirmar el cuarto. Ver [luces-exploradoras.md](luces-exploradoras.md).
 
+El orden inicial de las cuatro categorías y de Favoritos es **precio de menor a mayor**, por petición del propietario. Los selectores permiten cambiar a mayor a menor o al orden del catálogo. La elección se conserva al filtrar o cambiar de pestaña durante la visita a esa página. `src/data/productOrder.ts` comparte el criterio sin modificar los datos ni precios originales.
+
 Se conservan todos los recursos del proyecto en `src/assets/` y originales de `assets-src/`, además de los WebP nuevos de V12 de 480, 960 y 1448 px. `npm run images` requiere ImageMagick 7. Las secuencias 360° y modelos deben corresponder a material real.
 
 ## Novedades incluidas

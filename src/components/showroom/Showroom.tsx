@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { productWhatsappMessage, whatsappHref } from '../../config/site'
 import { getCategory, getProducts, productPath } from '../../data/catalog'
 import { feature } from '../../data/features'
-import { priceValue } from '../../data/price'
-import type { CategoryId, Product, ScreenSize } from '../../data/types'
+import { sortProducts, type ProductSort } from '../../data/productOrder'
+import type { CategoryId, ScreenSize } from '../../data/types'
 import { EASE, gsap, MQ, revealOnEnter, useGSAP } from '../../motion/gsap'
 import { Link } from '../../router/Link'
 import { useRouter } from '../../router/context'
@@ -17,7 +17,6 @@ import { ShowroomObject } from './ShowroomObject'
 import '../product/product-tile.css'
 import './showroom.css'
 
-type Sort = 'featured' | 'price-asc' | 'price-desc'
 const SIZES: ScreenSize[] = ['5"', '6.25"', '7"']
 const MAX_COMPARE = 3
 
@@ -27,12 +26,6 @@ interface Props {
   level: 'h1' | 'h2'
   /** Enlace a la página de la categoría (home). */
   linkToCategory?: boolean
-}
-
-function sortProducts(list: Product[], sort: Sort) {
-  if (sort === 'featured') return list
-  const dir = sort === 'price-asc' ? 1 : -1
-  return [...list].sort((a, b) => ((priceValue(a) ?? Infinity) - (priceValue(b) ?? Infinity)) * dir)
 }
 
 /**
@@ -50,7 +43,7 @@ export function Showroom({ category, level, linkToCategory }: Props) {
   const sizes = SIZES.filter((s) => all.some((p) => p.showroom?.screen === s))
 
   const [size, setSize] = useState<ScreenSize | 'all'>('all')
-  const [sort, setSort] = useState<Sort>('featured')
+  const [sort, setSort] = useState<ProductSort>('price-asc')
   const [selected, setSelected] = useState<string[]>([])
   const [comparing, setComparing] = useState(false)
 
@@ -188,7 +181,7 @@ export function Showroom({ category, level, linkToCategory }: Props) {
             ) : null}
             <label className="sort">
               <span className="sr-only">Ordenar</span>
-              <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+              <select value={sort} onChange={(e) => setSort(e.target.value as ProductSort)}>
                 <option value="featured">Orden del catálogo</option>
                 <option value="price-asc">Precio: menor a mayor</option>
                 <option value="price-desc">Precio: mayor a menor</option>

@@ -6,7 +6,8 @@ import { Icon } from '../components/ui/Icon'
 import { ProductVisual } from '../components/visuals/ProductVisual'
 import { categories, categoryPath, getProducts } from '../data/catalog'
 import { minPrice } from '../data/merchandising'
-import { formatPEN, priceValue } from '../data/price'
+import { formatPEN } from '../data/price'
+import { sortProducts, type ProductSort } from '../data/productOrder'
 import type { Category, Product } from '../data/types'
 import { EASE, gsap, MQ, revealOnEnter, useGSAP } from '../motion/gsap'
 import { Link } from '../router/Link'
@@ -48,7 +49,6 @@ export function CategoryPage({ category }: { category: Category }) {
 }
 
 type TypeFilter = 'all' | 'intercom' | 'helmet-audio'
-type Sort = 'featured' | 'price-asc' | 'price-desc'
 
 const TYPE_LABELS: Record<TypeFilter, string> = {
   all: 'Todos',
@@ -57,12 +57,6 @@ const TYPE_LABELS: Record<TypeFilter, string> = {
 }
 
 const typeOf = (p: Product): Exclude<TypeFilter, 'all'> => (p.productType === 'helmet-audio' ? 'helmet-audio' : 'intercom')
-
-function sortProducts(list: Product[], sort: Sort) {
-  if (sort === 'featured') return list
-  const dir = sort === 'price-asc' ? 1 : -1
-  return [...list].sort((a, b) => ((priceValue(a) ?? Infinity) - (priceValue(b) ?? Infinity)) * dir)
-}
 
 /** Colección (intercomunicadores): hero de categoría, catálogo en grilla y comparador. */
 function CollectionCategory({ category }: { category: Category }) {
@@ -73,7 +67,7 @@ function CollectionCategory({ category }: { category: Category }) {
   const all = getProducts(category.id)
   const types = category.id === 'intercomunicadores' ? (['intercom', 'helmet-audio'] as const).filter((t) => all.some((p) => typeOf(p) === t)) : []
   const [type, setType] = useState<TypeFilter>('all')
-  const [sort, setSort] = useState<Sort>('featured')
+  const [sort, setSort] = useState<ProductSort>('price-asc')
   const list = sortProducts(type === 'all' ? all : all.filter((p) => typeOf(p) === type), sort)
   const from = minPrice(all)
 
@@ -187,7 +181,7 @@ function CollectionCategory({ category }: { category: Category }) {
               ) : null}
               <label className="sort">
                 <span className="sr-only">Ordenar</span>
-                <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+                <select value={sort} onChange={(e) => setSort(e.target.value as ProductSort)}>
                   <option value="featured">Orden del catálogo</option>
                   <option value="price-asc">Precio: menor a mayor</option>
                   <option value="price-desc">Precio: mayor a menor</option>
