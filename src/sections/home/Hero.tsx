@@ -75,10 +75,13 @@ export function Hero() {
           <p className="eyebrow hero__eyebrow">SMART RIDE · Tecnología para motociclistas</p>
           <h1 id="hero-title" className="hero__title t-hero">
             <span className="line-mask">
-              <span>Conectados a</span>
+              <span>Conectados</span>
             </span>
             <span className="line-mask">
-              <span>cada aventura.</span>
+              <span>a cada</span>
+            </span>
+            <span className="line-mask">
+              <span>aventura.</span>
             </span>
           </h1>
           <p className="hero__lead t-lead">Intercomunicadores y tecnología CarPlay para disfrutar cada kilómetro.</p>
