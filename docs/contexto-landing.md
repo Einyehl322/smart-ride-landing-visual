@@ -73,10 +73,14 @@ El inventario exacto respecto al commit base está en `estado-original.txt`.
 - Incorporar secuencias 360° o modelos 3D reales si se activan esas experiencias.
 - Completar datos comerciales, redes, URL y decisión de indexación antes de publicar.
 - Revisar la suite completa de Playwright y capturas antes de desplegar; los resultados puntuales del respaldo están en `validacion-respaldo.md`.
-- Configurar base y workflow propios si se publica este repositorio.
+- El workflow de Pages usa `rediseno-visual` y compila con la base del repositorio nuevo. Los pushes a esa rama actualizan el sitio.
 
 ## Aislamiento del respaldo
 
-Repositorio nuevo y privado en `Einyehl322`, rama `rediseno-visual`, historial independiente. El directorio original sigue en `main` con sus cambios locales y `origin` sigue en `Einyehl322/alonso-landing`. No se sube ningún cambio al repositorio original.
+Repositorio independiente en `Einyehl322`, rama `rediseno-visual`. Se creó privado y posteriormente se hizo público con autorización del propietario para habilitar GitHub Pages. El directorio original sigue en `main` con sus cambios locales y `origin` sigue en `Einyehl322/alonso-landing`. No se sube ningún cambio al repositorio original.
 
 El inventario SHA-256 registra los archivos copiados antes de sustituir el README de plantilla y añadir la documentación del respaldo. Se excluyen los directorios generados que ya estaban ignorados por el proyecto.
+
+## Publicación posterior al respaldo
+
+Con autorización del propietario, el repositorio nuevo se hizo público y se configuró GitHub Pages mediante Actions. URL: https://einyehl322.github.io/smart-ride-landing-visual/. El sitio original no se modifica.

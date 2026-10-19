@@ -10,4 +10,6 @@ Comprobaciones ejecutadas sobre el estado local antes de subir la copia:
 - Comparación SHA-256: los 206 archivos originales copiados coinciden con el origen; únicamente el README de plantilla se sustituyó por documentación del proyecto. Se añadieron documentos de contexto, inventario y validación en la copia.
 - Rama, commit, archivos e inventario de cambios del directorio original permanecen iguales al inicio del respaldo.
 
-No se ha publicado el sitio ni modificado el repositorio original. Los resultados y capturas generados se conservan como material local ignorado por Git.
+Estas comprobaciones corresponden al respaldo inicial, antes de la publicación posterior en GitHub Pages. No se modificó el repositorio original. Los resultados y capturas generados se conservan como material local ignorado por Git.
+
+Validación adicional para Pages: `npm run build -- --base=/smart-ride-landing-visual/` terminó correctamente. El workflow se ajustó a la rama `rediseno-visual`.

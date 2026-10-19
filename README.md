@@ -2,7 +2,7 @@
 
 Copia independiente del estado local al 19/10/2026: rediseño visual, catálogo, imágenes originales y optimizadas, animaciones, comparadores y pruebas. SMART RIDE ofrece tecnología para motociclistas en Perú y recibe consultas por WhatsApp.
 
-Repositorio privado: `Einyehl322/smart-ride-landing-visual`. Rama de trabajo y predeterminada: `rediseno-visual`.
+Repositorio público: `Einyehl322/smart-ride-landing-visual`. Rama de trabajo y predeterminada: `rediseno-visual`.
 
 Parte de `Einyehl322/alonso-landing`, commit `688dce1f1e560615ad7c4df6af85a0f3a8c4890a`, con los cambios locales todavía sin confirmar. Tiene historial independiente. La rama `main` y el remoto del proyecto original permanecen intactos.
 
@@ -37,7 +37,11 @@ npm run test:e2e
 
 ## Despliegue
 
-No se ha publicado un sitio con esta copia. El workflow heredado compila con la base del nombre del repositorio, pero su disparador automático sigue limitado a `main`; también admite ejecución manual. Para publicar desde `rediseno-visual` se deberá configurar GitHub Pages y adaptar ese disparador.
+GitHub Pages está configurado para desplegar mediante GitHub Actions desde `rediseno-visual`. Cada push a esa rama compila con la base `/smart-ride-landing-visual/` y publica la nueva versión. También admite ejecución manual del workflow.
+
+URL del sitio: https://einyehl322.github.io/smart-ride-landing-visual/
+
+El repositorio se hizo público con autorización del propietario para permitir GitHub Pages con su plan actual. El repositorio original y su rama `main` permanecen intactos.
 
 Para compilar manualmente con la ruta del nuevo repositorio:
 
