@@ -117,11 +117,11 @@ test('Exploradoras: cuarto modo sin inventar y referencias agotadas con reposici
 })
 
 test('Exploradoras: lista de interés, comparación y consulta de modelos del mismo tipo', async ({ page }) => {
-  await page.goto('./?seleccion=exploradoras-3-ojos,exploradoras-5-ojos,carplay-7')
+  await page.goto('./?seleccion=exploradoras-3-ojos,exploradoras-5-ojos,carplay-625-freedconn')
   const dialog = page.getByRole('dialog', { name: 'Mi selección', exact: true })
   await expect(dialog).toBeVisible()
   await dialog.getByRole('checkbox', { name: 'Comparar Exploradoras de 3 ojos', exact: true }).check()
-  await expect(dialog.getByRole('checkbox', { name: 'Comparar CarPlay 7"', exact: true })).toBeDisabled()
+  await expect(dialog.getByRole('checkbox', { name: 'Comparar CarPlay 6.25" FreedConn', exact: true })).toBeDisabled()
   await dialog.getByRole('checkbox', { name: 'Comparar Exploradoras de 5 ojos', exact: true }).check()
   await dialog.getByRole('button', { name: 'Comparar (2/3)' }).click()
   const comparison = page.getByRole('dialog', { name: 'Compara tu selección', exact: true })

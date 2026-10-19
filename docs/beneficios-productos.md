@@ -23,7 +23,6 @@ No se añaden «más vendido», popularidad, reseñas, descuentos, mejoras de se
 | EJEAS V6 Pro Plus | Elegir con cuál de los equipos vinculados conversar | Seis vinculados y dos en conversación; datos de versión discrepantes identificados. |
 | CarPlay 6.25 FreedConn | Sumar cámaras y velocidad GPS a la navegación | Funciones del catálogo; confirmar resolución del kit y versión. |
 | CarPlay 6.25 Magnético | Retirar la pantalla al estacionar | Base magnética publicada; Single Bluetooth y medidas por confirmar según instalación. |
-| CarPlay 7 | Pantalla mayor y control desde un mando externo | Diagonal y mando publicados; sin prometer funciones o montaje del mando no confirmados. |
 | CarPlay 7 Waterproof | Pantalla grande desmontable | Base magnética y diagonal publicadas; IP67 compartido con otros modelos. |
 | CarPlay 5 + Cámaras 2K | Sumar vista delantera y trasera y función TPMS | No se promete que incluya sensores; confirmar contenido y resolución. |
 | CarPlay 5 Dual BT | Formato compacto y la variante Dual al mismo precio actual que Single | Precio comparado dinámicamente; no se presume audio simultáneo en dos cascos. |

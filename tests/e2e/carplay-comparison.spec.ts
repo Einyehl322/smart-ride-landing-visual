@@ -70,13 +70,12 @@ test('CarPlay: dos pantallas de 5 pulgadas al mismo precio se distinguen por Sin
   expect(message).toContain('resolución y brillo')
 })
 
-test('CarPlay: Waterproof comparte IP67 con el otro 7 y se diferencia por base y mando', async ({ page }) => {
-  const compare = await savedComparison(page, ['carplay-7', 'carplay-7-waterproof'])
+test('CarPlay: Waterproof comparte IP67 con FreedConn y se diferencia por su base magnética', async ({ page }) => {
+  const compare = await savedComparison(page, ['carplay-625-freedconn', 'carplay-7-waterproof'])
   await expect(compare.getByLabel('Características compartidas')).toContainText('Resistencia al agua: IP67')
   await expect(compare.locator('tbody tr')).toHaveCount(2)
   await expect(compare.locator('tbody').getByRole('rowheader', { name: /^Base magnética/ })).toBeVisible()
-  await expect(compare.locator('tbody').getByRole('rowheader', { name: /^Control remoto/ })).toBeVisible()
-  await expect(compare.locator('thead')).toContainText('20.00')
+  await expect(compare.locator('thead')).toContainText('160.00')
 })
 
 test('CarPlay: cámaras, GPS y contenido TPMS mantienen las distinciones del catálogo', async ({ page }) => {

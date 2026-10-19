@@ -5,7 +5,7 @@ import { ShowroomObject } from '../../components/showroom/ShowroomObject'
 import { Icon } from '../../components/ui/Icon'
 import { categoryPath, getCategory, getProducts } from '../../data/catalog'
 import type { FeatureIconName, FeatureKey } from '../../data/features'
-import { carplayShowcase, minPrice } from '../../data/merchandising'
+import { minPrice } from '../../data/merchandising'
 import type { ScreenSize } from '../../data/types'
 import { EASE, gsap, MQ, MQ_CONDITIONS, useGSAP } from '../../motion/gsap'
 import { Link } from '../../router/Link'
@@ -44,7 +44,7 @@ const benefits: { icon: FeatureIconName; text: string }[] = [
 export function CarPlayFeature() {
   const ref = useRef<HTMLElement>(null)
   const category = getCategory('carplay')
-  const hero = carplayShowcase ?? list[0]
+  const hero = list[0]
   const from = minPrice(list)
 
   useGSAP(

@@ -4,7 +4,7 @@ Recopilación del código y documentos disponibles en el workspace al 19/10/2026
 
 ## Propósito y configuración
 
-SMART RIDE presenta tecnología para motociclistas en Perú: intercomunicadores, audífonos Bluetooth para casco, pantallas CarPlay, accesorios TPMS y luces exploradoras. Hay 27 referencias en cuatro categorías. El recorrido comercial termina en consultas por WhatsApp con nombre y precio del modelo cuando corresponde. No hay backend de pedidos ni checkout.
+SMART RIDE presenta tecnología para motociclistas en Perú: intercomunicadores, audífonos Bluetooth para casco, pantallas CarPlay, accesorios TPMS y luces exploradoras. Hay 26 referencias publicadas en cuatro categorías. El recorrido comercial termina en consultas por WhatsApp con nombre y precio del modelo cuando corresponde. No hay backend de pedidos ni checkout.
 
 `src/config/site.ts` centraliza marca, contacto, mensajes y SEO. Actualmente `demoMode: true`, `seo.indexable: false` y `siteUrl` vacío. Correo, dirección, horario y redes están pendientes. La lista de interés se guarda en el navegador bajo `smartride-interest-list`.
 
@@ -29,7 +29,7 @@ Orden real de `src/pages/HomePage.tsx`:
 11. `HowToBuy`: proceso de consulta y compra.
 12. `FinalCta`: cierre y contacto.
 
-La cabecera y el menú móvil pasan a una presentación clara. El footer evita repetir campos sin completar. Las fichas separan fotografía e información en columnas en escritorio y las apilan en móvil.
+La cabecera fija usa carbón oscuro con texto claro y acentos azules; el menú móvil conserva un panel claro. El footer evita repetir campos sin completar. Las fichas separan fotografía e información en columnas en escritorio y las apilan en móvil.
 
 ## Arquitectura y fuentes de datos
 

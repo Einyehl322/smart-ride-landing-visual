@@ -4,7 +4,7 @@ import { trackErrors } from './helpers'
 test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
 const intercom = ['y13-pro', 'freedconn-hero', 's7-pro', 's7', 'q58-max', 'p30-pro', 'v12-earphone', 'ejeas-q8', 'ejeas-v6-pro-plus']
-const carplay = ['carplay-625-freedconn', 'carplay-625-magnetico', 'carplay-7', 'carplay-7-waterproof', 'carplay-5-camaras-2k', 'carplay-5-dual-bt', 'carplay-5-navegacion']
+const carplay = ['carplay-625-freedconn', 'carplay-625-magnetico', 'carplay-7-waterproof', 'carplay-5-camaras-2k', 'carplay-5-dual-bt', 'carplay-5-navegacion']
 const accessories = ['tpms-kit-solar', 'tpms-compacto']
 const routes = [
   ...intercom.map((slug) => `intercomunicadores/${slug}`),
@@ -40,7 +40,7 @@ for (const route of routes) {
   })
 }
 
-for (const [category, count] of [['intercomunicadores', 9], ['carplay', 7], ['accesorios', 2]] as const) {
+for (const [category, count] of [['intercomunicadores', 9], ['carplay', 6], ['accesorios', 2]] as const) {
   test(`Beneficios: todas las tarjetas de ${category} tienen una propuesta de uso`, async ({ page }) => {
     await page.goto(`./${category}`)
     const cards = page.getByTestId('product-tile')

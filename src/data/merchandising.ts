@@ -31,7 +31,6 @@ export const favorites: { id: CategoryId; label: string; products: Product[] }[]
       'carplay-625-freedconn',
       'carplay-7-waterproof',
       'carplay-625-magnetico',
-      'carplay-7',
       'carplay-5-camaras-2k',
       'carplay-5-dual-bt',
     ]),
@@ -51,9 +50,6 @@ export const categoryCovers: Partial<Record<CategoryId, Product | undefined>> = 
   accesorios: bySlugs(['tpms-kit-solar'])[0],
   exploradoras: bySlugs(['exploradoras-5-ojos'])[0],
 }
-
-/** Modelo protagonista de la presentación CarPlay de la home. */
-export const carplayShowcase: Product | undefined = bySlugs(['carplay-7'])[0]
 
 /* ---------- spotlight editorial ---------- */
 

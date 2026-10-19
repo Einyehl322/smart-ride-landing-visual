@@ -14,7 +14,7 @@ const MIN = 2
 
 const GROUPS: { id: Extract<CategoryId, 'intercomunicadores' | 'carplay' | 'exploradoras'>; label: string; initial: string[] }[] = [
   { id: 'intercomunicadores', label: 'Intercomunicadores', initial: ['freedconn-hero', 'ejeas-q8', 'p30-pro'] },
-  { id: 'carplay', label: 'Pantallas CarPlay', initial: ['carplay-625-freedconn', 'carplay-7', 'carplay-5-dual-bt'] },
+  { id: 'carplay', label: 'Pantallas CarPlay', initial: ['carplay-625-freedconn', 'carplay-7-waterproof', 'carplay-5-dual-bt'] },
   { id: 'exploradoras', label: 'Luces exploradoras', initial: ['exploradoras-3-ojos', 'exploradoras-5-ojos', 'exploradoras-2-ojos'] },
 ]
 

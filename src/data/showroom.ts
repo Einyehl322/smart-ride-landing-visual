@@ -119,17 +119,6 @@ export const carplayProducts: Product[] = [
     summary: 'Pantalla de 6.25" para motocicleta con Apple CarPlay y Android Auto inalámbricos y base magnética fácil de desmontar.',
   }),
   showroomProduct({
-    slug: 'carplay-7',
-    reference: { source: 'Carpuride W702S Pro', url: 'https://carpuride.com/products/carpuride-w702s-motorcycle-stereo-with-universal-mounting-bracket-bm05' },
-    category: 'carplay',
-    name: 'CarPlay 7"',
-    price: 420,
-    screen: '7"',
-    features: ['carplay', 'androidAuto', 'tpmsOptional', 'ip67', 'btDual', 'remote'],
-    tagline: 'Pantalla de 7" con Dual Bluetooth y control remoto multifuncional.',
-    summary: 'Pantalla de 7" para motocicleta con Apple CarPlay y Android Auto inalámbricos, Dual Bluetooth + WiFi y control remoto multifuncional.',
-  }),
-  showroomProduct({
     slug: 'carplay-7-waterproof',
     reference: { source: 'AliExpress · 7" con soporte de liberación rápida y TPMS', url: 'https://es.aliexpress.com/item/1005013130388810.html' },
     category: 'carplay',
