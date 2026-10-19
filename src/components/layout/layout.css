@@ -1,0 +1,449 @@
+/* ---------- marca ---------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--fg);
+}
+
+.brand__mark {
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+
+.brand__name {
+  font-weight: 650;
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+}
+
+/* ---------- cabecera ---------- */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  color: var(--fg);
+  view-transition-name: site-header;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease;
+}
+
+.site-header.is-solid {
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-color: var(--line);
+}
+
+.site-header[data-scheme='dark'].is-solid {
+  background: rgb(16 23 34 / 0.74);
+  border-color: rgb(255 255 255 / 0.08);
+}
+
+/*
+ * Con el menú abierto la cabecera es opaca y sin backdrop-filter: el filtro
+ * convertiría la cabecera en el bloque contenedor del panel fijo y lo recortaría.
+ */
+.site-header.is-open {
+  background: var(--c-white);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: var(--header-h);
+}
+
+.site-nav {
+  margin-left: auto;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 0.15rem;
+  list-style: none;
+  padding: 0;
+}
+
+.site-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: var(--fw-medium);
+  color: var(--fg-soft);
+  transition:
+    color var(--dur-micro) ease,
+    background-color var(--dur-micro) ease;
+}
+
+.site-nav__link:hover {
+  color: var(--fg);
+  background: var(--ghost-hover);
+}
+
+.site-nav__link[aria-current='page'] {
+  color: var(--fg);
+}
+
+.site-nav__link[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  translate: -50% 0;
+  background: var(--c-accent);
+}
+
+/* Acceso directo a CarPlay: solo en móvil, donde el menú principal está plegado. */
+.site-header__quick {
+  display: none;
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--fg);
+}
+
+.menu-toggle:hover {
+  background: var(--ghost-hover);
+}
+
+.menu-toggle__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--c-white);
+  color: var(--fg);
+  padding-block: 0.5rem 3rem;
+}
+
+.mobile-menu__top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-block: 1rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-menu__top a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+.mobile-menu__group {
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-menu__primary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1.65rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.03em;
+}
+
+.mobile-menu__count {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+  color: var(--fg-muted);
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 0.6rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.1rem 1rem;
+}
+
+.mobile-menu ul a {
+  display: block;
+  padding: 0.5rem 0;
+  color: var(--fg-soft);
+  font-size: var(--fs-small);
+}
+
+.mobile-menu ul a:hover,
+.mobile-menu ul a[aria-current='page'] {
+  color: var(--fg);
+}
+
+.mobile-menu__cta {
+  padding-top: 1.75rem;
+}
+
+.mobile-menu__cta .btn {
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .site-nav,
+  .site-header__cta {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: grid;
+  }
+
+  .site-header__quick {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    margin-left: auto;
+    padding: 0 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-medium);
+  }
+
+  .site-header__quick[aria-current='page'] {
+    border-color: var(--c-accent);
+    color: var(--accent-fg);
+  }
+}
+
+/* ---------- contacto y pie ---------- */
+
+.site-footer {
+  position: relative;
+  background: var(--bg-alt);
+  color: var(--fg);
+  border-top: 1px solid var(--line);
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 2rem clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  padding-block: clamp(4rem, 8vw, 6.5rem) clamp(3rem, 6vw, 4.5rem);
+}
+
+.contact .eyebrow {
+  margin-bottom: 1rem;
+}
+
+.contact__title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tracking-tight);
+  max-width: 14ch;
+}
+
+.contact__aside {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: start;
+}
+
+.contact__aside .t-lead {
+  max-width: 30rem;
+  color: var(--fg-muted);
+}
+
+.contact__data {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2rem;
+}
+
+.contact__data dt {
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+  margin-bottom: 0.2rem;
+}
+
+.contact__data dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.footer-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+  gap: 2.5rem 4rem;
+  padding-block: 3rem 2.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.footer-bottom__brand {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+
+.footer-bottom__brand strong {
+  letter-spacing: 0.16em;
+  font-weight: 650;
+}
+
+.footer-bottom__brand p {
+  font-size: var(--fs-small);
+}
+
+.footer-nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.footer-nav__title {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-small);
+}
+
+.footer-nav ul {
+  list-style: none;
+  padding: 0.85rem 0 0;
+  display: grid;
+  gap: 0.5rem;
+  font-size: var(--fs-small);
+  color: var(--fg-muted);
+}
+
+.footer-nav a:hover {
+  color: var(--fg);
+}
+
+.footer-legal {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--fg-muted);
+}
+
+.footer-legal p:first-child {
+  max-width: 44rem;
+}
+
+@media (max-width: 899px) {
+  .contact,
+  .footer-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .contact {
+    align-items: start;
+  }
+
+  .footer-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-legal {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* ---------- WhatsApp ---------- */
+
+.wa-fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 56px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--c-accent);
+  color: #fff;
+  box-shadow: 0 12px 28px -12px rgb(37 99 235 / 0.6);
+  view-transition-name: wa-fab;
+  opacity: 0;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+  transition:
+    opacity 400ms var(--ease-out),
+    transform 500ms var(--ease-out),
+    background-color var(--dur-micro) ease;
+}
+
+.wa-fab.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.wa-fab:hover {
+  background: var(--c-accent-ink);
+}
+
+.wa-fab__icon {
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+
+.wa-fab__label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: var(--fw-medium);
+  font-size: 0.95rem;
+  transition:
+    max-width 500ms var(--ease-out),
+    margin 500ms var(--ease-out);
+}
+
+@media (hover: hover) {
+  .wa-fab:hover .wa-fab__label,
+  .wa-fab:focus-visible .wa-fab__label {
+    max-width: 16rem;
+    margin-left: 0.6rem;
+  }
+}
+
+/* En la ficha móvil, la barra de compra ya ofrece la consulta. */
+@media (max-width: 899px) {
+  .wa-fab[data-context='product'] {
+    display: none;
+  }
+}

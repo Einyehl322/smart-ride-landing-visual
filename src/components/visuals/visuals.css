@@ -1,0 +1,228 @@
+/* ---------- ProductVisual ---------- */
+
+.pv {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.pv__camera {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+}
+
+.pv img,
+.pv svg {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+.pv--contain img {
+  object-fit: contain;
+}
+
+.pv--cover img {
+  object-fit: cover;
+}
+
+/* ---------- giro del producto ---------- */
+
+.spin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.spin:active {
+  cursor: grabbing;
+}
+
+.spin__turn {
+  --spin: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.spin img,
+.spin__turn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Reflejo especular que recorre el producto según el ángulo (solo sobre sus píxeles). */
+.spin__sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 38%, rgb(255 255 255 / 0.22) 50%, transparent 62%);
+  background-size: 300% 100%;
+  background-position: calc(50% - var(--spin) * 2.2%) 0;
+  mix-blend-mode: soft-light;
+  -webkit-mask: var(--mask) center / contain no-repeat;
+  mask: var(--mask) center / contain no-repeat;
+}
+
+/* Sombra de contacto que respira con la flotación. */
+.spin__shadow {
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: -2%;
+  height: 7%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.55), transparent);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.spin__hint {
+  position: absolute;
+  left: 50%;
+  bottom: -1.5rem;
+  translate: -50% 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.spin:hover .spin__hint {
+  opacity: 1;
+}
+
+/* ---------- ProductStage ---------- */
+
+.stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--stage-bg);
+  border-radius: var(--radius-stage);
+}
+
+.stage__light {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 45% at 50% 30%, rgb(255 255 255 / 0.075), transparent 72%),
+    radial-gradient(38% 26% at 52% 86%, var(--c-accent-glow), transparent 100%);
+}
+
+.stage[data-scheme='light'] .stage__light {
+  background:
+    radial-gradient(60% 50% at 50% 30%, rgb(255 255 255 / 0.85), transparent 75%),
+    radial-gradient(40% 24% at 50% 88%, rgb(19 20 24 / 0.08), transparent 100%);
+}
+
+/* Línea de suelo: da peso al producto sin necesidad de 3D. */
+.stage--object::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 14%;
+  height: 1px;
+  z-index: 0;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+  opacity: 0.6;
+}
+
+.stage__visual {
+  position: absolute;
+  z-index: 1;
+}
+
+.stage--object .stage__visual {
+  inset: 12% 10% 16%;
+}
+
+.stage--cover .stage__visual {
+  inset: 0;
+}
+
+/* Viñeta para que el texto sobre fotografías sea legible. */
+.stage--cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(5 6 8 / 0.35) 0%, transparent 30%, transparent 55%, rgb(5 6 8 / 0.75) 100%);
+}
+
+/* Escenas fotográficas: encuadre completo, sin suelo ni perspectiva simulados. */
+.stage--photograph .stage__visual {
+  inset: 0;
+}
+
+.stage--photograph::after {
+  display: none;
+}
+
+/* ---------- Placeholder para productos sin foto ---------- */
+
+.pv--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--stage-surface, var(--c-graphite-800));
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-stage);
+}
+
+.pv__placeholder {
+  text-align: center;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- V12 Pro: animación RGB premium ---------- */
+
+[data-product-slug="v12-earphone"] .stage__visual {
+  animation: v12-float 6s ease-in-out infinite;
+  filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.5));
+}
+
+[data-product-slug="v12-earphone"] .stage__light {
+  background:
+    radial-gradient(45% 40% at 65% 45%, rgb(112 136 255 / 0.15), transparent 70%),
+    radial-gradient(35% 25% at 68% 42%, rgb(255 80 120 / 0.12), transparent 60%),
+    radial-gradient(30% 20% at 62% 48%, rgb(0 220 130 / 0.1), transparent 50%);
+  animation: v12-glow-pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes v12-float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-8px) scale(1.01); }
+}
+
+@keyframes v12-glow-pulse {
+  0% { opacity: 0.6; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1.02); }
+}
+
+/* Efecto de brillo al pasar el cursor sobre la tarjeta del V12 */
+.ptile:hover [data-product-slug="v12-earphone"] .stage__visual {
+  transform: translateY(-4px) scale(1.03);
+  filter: drop-shadow(0 24px 48px rgb(112 136 255 / 0.25));
+  transition: transform 0.6s var(--ease-out), filter 0.6s var(--ease-out);
+}

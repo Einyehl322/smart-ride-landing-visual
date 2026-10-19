@@ -1,0 +1,33 @@
+{
+  "images": [
+    {
+      "name": "hero",
+      "width": 834,
+      "height": 588,
+      "alpha": true,
+      "widths": [
+        640,
+        834
+      ]
+    },
+    {
+      "name": "accesorio-camaras",
+      "width": 253,
+      "height": 161,
+      "alpha": true,
+      "widths": [
+        253
+      ]
+    },
+    {
+      "name": "frontal",
+      "width": 676,
+      "height": 359,
+      "alpha": true,
+      "widths": [
+        640,
+        676
+      ]
+    }
+  ]
+}

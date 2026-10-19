@@ -1,0 +1,85 @@
+Origen: https://github.com/Einyehl322/alonso-landing
+Commit base: 688dce1f1e560615ad7c4df6af85a0f3a8c4890a
+
+Cambios locales incluidos en la copia (git status --porcelain):
+ M .gitignore
+ M package-lock.json
+ M package.json
+ M src/App.tsx
+ M src/components/interest/InterestToggleButton.tsx
+ M src/components/interest/interest-list.css
+ M src/components/layout/Footer.tsx
+ M src/components/layout/Header.tsx
+ M src/components/layout/layout.css
+ D src/components/product/ProductCard.tsx
+ D src/components/product/ProductCollection.tsx
+ M src/components/product/ProductCompare.tsx
+ M src/components/product/compare.css
+ D src/components/product/product-card.css
+ M src/components/showroom/Price.tsx
+ M src/components/showroom/Showroom.tsx
+ D src/components/showroom/ShowroomCard.tsx
+ M src/components/showroom/showroom.css
+ M src/components/ui/Icon.tsx
+ M src/components/viewer360/Viewer360.tsx
+ M src/components/visuals/visuals.css
+ M src/data/catalog.ts
+ M src/data/media.ts
+ M src/data/types.ts
+ M src/motion/gsap.ts
+ M src/pages/CategoryPage.tsx
+ M src/pages/HomePage.tsx
+ M src/pages/NotFoundPage.tsx
+ M src/pages/ProductPage.tsx
+ M src/pages/ShowroomProductPage.tsx
+ M src/pages/pages.css
+ M src/sections/home/CategoryChooser.tsx
+ M src/sections/home/Hero.tsx
+ M src/sections/home/HowToBuy.tsx
+ D src/sections/home/IntercomUniverse.tsx
+ M src/sections/home/Manifesto.tsx
+ D src/sections/home/RoadFeature.tsx
+ M src/sections/home/hero.css
+ M src/sections/home/home.css
+ M src/sections/product/MobileBuyBar.tsx
+ M src/sections/product/ProductBenefits.tsx
+ M src/sections/product/ProductDetails.tsx
+ M src/sections/product/ProductFaq.tsx
+ M src/sections/product/ProductGallery.tsx
+ M src/sections/product/ProductHero.tsx
+ M src/sections/product/ProductIntro.tsx
+ M src/sections/product/ProductSpecs.tsx
+ M src/sections/product/ProductSubnav.tsx
+ M src/sections/product/product.css
+ M src/styles/base.css
+ M src/styles/tokens.css
+ M tsconfig.json
+?? docs/auditoria-diseno.md
+?? playwright.config.ts
+?? scripts/design-audit-probe.mjs
+?? scripts/design-audit.mjs
+?? scripts/shot-at.mjs
+?? scripts/shot-menu.mjs
+?? scripts/shot.mjs
+?? src/assets/media/products/v12-pro-1448.webp
+?? src/assets/media/products/v12-pro-480.webp
+?? src/assets/media/products/v12-pro-960.webp
+?? src/components/product/ProductTile.tsx
+?? src/components/product/product-tile.css
+?? src/data/merchandising.ts
+?? src/sections/home/CarPlayFeature.tsx
+?? src/sections/home/Collections.tsx
+?? src/sections/home/CompareHome.tsx
+?? src/sections/home/Favorites.tsx
+?? src/sections/home/FinalCta.tsx
+?? src/sections/home/Spotlight.tsx
+?? src/sections/home/WhySmartRide.tsx
+?? src/sections/product/ProductRelated.tsx
+?? tests/e2e/catalog.spec.ts
+?? tests/e2e/helpers.ts
+?? tests/e2e/home.spec.ts
+?? tests/e2e/motion.spec.ts
+?? tests/e2e/navigation.spec.ts
+?? tests/e2e/product.spec.ts
+?? tests/e2e/visual.spec.ts
+?? tsconfig.e2e.json

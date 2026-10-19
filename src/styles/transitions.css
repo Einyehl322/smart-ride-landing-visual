@@ -1,0 +1,97 @@
+/*
+ * Coreografía de View Transitions.
+ * - root: la vista anterior se retira y la nueva entra con retardo, para que el
+ *   protagonismo sea del producto que viaja entre páginas.
+ * - product-stage: el escenario de la tarjeta se expande hasta el hero.
+ * - product-visual: el producto se desplaza al centro y cambia de escala.
+ */
+
+::view-transition-group(*) {
+  animation-duration: 0.95s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.12, 1);
+}
+
+::view-transition-old(root) {
+  animation: vt-root-out 0.42s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: vt-root-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+/* Navegación sin producto compartido: desplazamiento editorial. */
+html:not([data-nav='back']) ::view-transition-new(root) {
+  --vt-shift: 24px;
+}
+
+html[data-nav='back'] ::view-transition-new(root) {
+  --vt-shift: -24px;
+}
+
+@keyframes vt-root-out {
+  to {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+}
+
+@keyframes vt-root-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--vt-shift, 24px));
+  }
+}
+
+/* Escenario: se recorta como "cover" para que no se deforme al cambiar de proporción. */
+::view-transition-old(*.product-stage),
+::view-transition-new(*.product-stage) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+::view-transition-old(*.product-stage) {
+  animation: vt-stage-out 0.95s cubic-bezier(0.65, 0, 0.12, 1) both;
+}
+
+::view-transition-new(*.product-stage) {
+  animation: vt-stage-in 0.95s cubic-bezier(0.65, 0, 0.12, 1) both;
+}
+
+@keyframes vt-stage-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-stage-in {
+  from {
+    opacity: 0;
+  }
+}
+
+::view-transition-group(*.product-visual) {
+  animation-duration: 1.05s;
+}
+
+::view-transition-old(*.product-visual),
+::view-transition-new(*.product-visual) {
+  height: 100%;
+  object-fit: contain;
+}
+
+/* La cabecera y el botón flotante permanecen quietos. */
+::view-transition-group(site-header),
+::view-transition-group(wa-fab) {
+  animation: none;
+}
+
+::view-transition-old(site-header),
+::view-transition-old(wa-fab) {
+  display: none;
+}
+
+::view-transition-new(site-header),
+::view-transition-new(wa-fab) {
+  animation: none;
+}

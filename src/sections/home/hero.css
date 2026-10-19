@@ -1,0 +1,237 @@
+.hero {
+  position: relative;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: clip;
+}
+
+.hero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: center;
+  min-height: min(100svh, 980px);
+  padding-block: calc(var(--header-h) + 1.25rem) clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.hero__eyebrow {
+  margin-bottom: 1.5rem;
+}
+
+/* Dos líneas: "Conectados a" / "cada aventura." */
+.hero__title {
+  font-size: clamp(2.5rem, 1.1rem + 4.3vw, 5.5rem);
+  font-weight: var(--fw-semibold);
+}
+
+.hero__lead {
+  max-width: 26rem;
+  margin-top: clamp(1.25rem, 2.4vw, 1.75rem);
+  color: var(--fg-muted);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: clamp(1.75rem, 3.4vw, 2.5rem);
+}
+
+.hero__meta {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+}
+
+.hero__meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hero__meta .btn__icon {
+  width: 16px;
+  height: 16px;
+  color: var(--c-accent);
+}
+
+/* ---------- composición fotográfica ---------- */
+
+.hero__frame {
+  position: relative;
+  min-width: 0;
+  height: min(calc(100svh - var(--header-h) - 3.5rem), 860px);
+  min-height: 460px;
+  border-radius: var(--radius-stage);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--c-black);
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 54% 50%;
+  transform-origin: 58% 52%;
+}
+
+/* Haz de luz que descubre el producto. */
+.hero__beam {
+  position: absolute;
+  inset: -10% -10% -10% 10%;
+  pointer-events: none;
+  background: radial-gradient(42% 46% at 58% 52%, rgb(150 178 255 / 0.2), transparent 70%);
+  mix-blend-mode: screen;
+}
+
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgb(7 10 16 / 0.7) 0%, transparent 34%);
+}
+
+.hero__dim,
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  background: var(--c-black);
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Etiqueta del producto, como en una vitrina. */
+.hero__tag {
+  position: absolute;
+  left: clamp(1rem, 2.4vw, 1.75rem);
+  bottom: clamp(1rem, 2.4vw, 1.75rem);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.85rem 0.85rem 0.85rem 1.15rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 18px;
+  background: rgb(16 23 34 / 0.55);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  color: #fff;
+  transition:
+    background-color var(--dur-micro) ease,
+    border-color var(--dur-micro) ease;
+}
+
+.hero__tag:hover {
+  background: rgb(16 23 34 / 0.72);
+  border-color: rgb(255 255 255 / 0.28);
+}
+
+.hero__tag-copy {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.hero__tag-label {
+  font-size: var(--fs-caption);
+  color: rgb(255 255 255 / 0.72);
+}
+
+.hero__tag-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+.hero__tag .price {
+  color: #fff;
+}
+
+.hero__tag .price__currency,
+.hero__tag .price__fraction {
+  color: rgb(255 255 255 / 0.72);
+}
+
+.hero__tag-arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--c-ink-900);
+}
+
+.hero__tag:hover .btn__icon--arrow {
+  transform: translateX(2px);
+}
+
+/* Móvil: la foto arriba, el mensaje debajo. */
+@media (max-width: 1023px) {
+  .hero__layout {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: 1.75rem;
+    padding-block: calc(var(--header-h) + 0.5rem) clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .hero__frame {
+    order: -1;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3.4;
+  }
+
+  .hero__title {
+    max-width: 13ch;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 599px) {
+  .hero__frame {
+    aspect-ratio: 1 / 1.02;
+    border-radius: 22px;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 820px) {
+  .hero__title {
+    font-size: clamp(2.8rem, 10vh, 5.6rem);
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 1rem;
+  }
+
+  .hero__lead {
+    margin-top: 1rem;
+  }
+
+  .hero__actions,
+  .hero__meta {
+    margin-top: 1.5rem;
+  }
+}

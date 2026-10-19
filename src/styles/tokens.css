@@ -1,0 +1,132 @@
+:root {
+  /* ---- Paleta light premium ---- */
+  --c-white: #ffffff;
+  --c-snow: #f8f9fa;
+  --c-mist: #f1f3f5;
+  --c-fog: #e7e9ee;
+  --c-ink-900: #17191d;
+  --c-ink-700: #344054;
+  --c-ink-600: #475467;
+  --c-slate: #667085;
+
+  /* Fondos cinematográficos (secciones oscuras). */
+  --c-night: #101722;
+  --c-night-2: #172131;
+  --c-black: #070a10;
+  --c-ink: #0b1018;
+  --c-graphite-900: #121924;
+  --c-graphite-800: #182130;
+  --c-graphite-700: #232d3d;
+  --c-graphite-600: #2f3a4b;
+  --c-steel-500: #6d7684;
+  --c-steel-400: #98a2b3;
+  --c-steel-300: #c3cad5;
+  --c-steel-200: #dde2e9;
+
+  /* Azul tecnológico de la marca (contraste AA sobre blanco y con texto blanco). */
+  --c-accent: #2563eb;
+  --c-accent-strong: #2563eb;
+  --c-accent-ink: #1d4ed8;
+  --c-accent-soft: #eaf1fe;
+  /* Variante luminosa para texto y detalles sobre fondos oscuros. */
+  --c-accent-bright: #7aa2ff;
+  --c-accent-glow: rgb(37 99 235 / 0.2);
+
+  /* ---- Tipografía ---- */
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Tamaños fluidos: titulares grandes pero sin comprimirse. */
+  --fs-hero: clamp(2.9rem, 1.35rem + 5.4vw, 6.4rem);
+  --fs-display: clamp(2.4rem, 1.3rem + 3.9vw, 4.9rem);
+  --fs-h2: clamp(2rem, 1.25rem + 2.5vw, 3.5rem);
+  --fs-h3: clamp(1.25rem, 1.08rem + 0.6vw, 1.6rem);
+  --fs-lead: clamp(1.06rem, 0.98rem + 0.36vw, 1.28rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --fs-caption: 0.8125rem;
+  --fs-label: 0.75rem;
+
+  --lh-hero: 1;
+  --lh-display: 1.03;
+  --lh-h2: 1.08;
+  --lh-h3: 1.2;
+  --lh-lead: 1.55;
+  --lh-body: 1.6;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --tracking-tighter: -0.035em;
+  --tracking-tight: -0.022em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.08em;
+  --tracking-widest: 0.12em;
+
+  --max-prose: 32rem;
+  --max-text: 38rem;
+
+  /* ---- Espacio ---- */
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 3rem);
+  --section: clamp(4.5rem, 2.6rem + 5.8vw, 9rem);
+  --max: 1320px;
+
+  --radius-stage: clamp(20px, 1rem + 0.8vw, 28px);
+  --radius-panel: 18px;
+  --radius-card: 20px;
+
+  --header-h: 68px;
+
+  --shadow-soft: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px -12px rgb(16 24 40 / 0.1);
+  --shadow-lift: 0 2px 4px rgb(16 24 40 / 0.04), 0 22px 44px -22px rgb(16 24 40 / 0.22);
+
+  /* ---- Movimiento ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.7, 0, 0.2, 1);
+  --dur-micro: 220ms;
+}
+
+/*
+ * Esquemas por sección: cada bloque declara data-scheme y hereda estos roles.
+ * El claro es la base de la experiencia; el oscuro queda para los momentos
+ * cinematográficos (spotlight, storytelling, visor, cierres).
+ */
+:root,
+[data-scheme='light'] {
+  --bg: var(--c-white);
+  --bg-alt: var(--c-snow);
+  --surface: var(--c-mist);
+  --fg: var(--c-ink-900);
+  --fg-muted: var(--c-slate);
+  --fg-soft: var(--c-ink-600);
+  --line: var(--c-fog);
+  --line-strong: #d0d5dd;
+  --link: var(--c-accent);
+  --accent-fg: var(--c-accent);
+  --btn-bg: var(--c-ink-900);
+  --btn-fg: #fff;
+  --btn-bg-hover: #2b2f36;
+  --ghost-hover: var(--c-mist);
+  color-scheme: light;
+}
+
+[data-scheme='dark'] {
+  --bg: var(--c-night);
+  --bg-alt: var(--c-ink);
+  --surface: var(--c-graphite-800);
+  --fg: #f4f6fa;
+  --fg-muted: var(--c-steel-400);
+  --fg-soft: var(--c-steel-300);
+  --line: rgb(255 255 255 / 0.1);
+  --line-strong: rgb(255 255 255 / 0.22);
+  --link: var(--c-accent-bright);
+  --accent-fg: var(--c-accent-bright);
+  --btn-bg: #f4f6fa;
+  --btn-fg: var(--c-ink-900);
+  --btn-bg-hover: #ffffff;
+  --ghost-hover: rgb(255 255 255 / 0.08);
+  color-scheme: dark;
+}

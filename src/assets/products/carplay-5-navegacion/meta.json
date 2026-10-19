@@ -1,0 +1,14 @@
+{
+  "images": [
+    {
+      "name": "hero",
+      "width": 1012,
+      "height": 999,
+      "alpha": true,
+      "widths": [
+        640,
+        1012
+      ]
+    }
+  ]
+}
