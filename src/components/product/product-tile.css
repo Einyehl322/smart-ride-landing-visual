@@ -48,6 +48,8 @@
 
 .ptile__media {
   position: relative;
+  /* El enlace extendido del nombre no debe tapar el botón de guardar. */
+  z-index: 2;
   border-radius: 16px;
   overflow: hidden;
   isolation: isolate;

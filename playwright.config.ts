@@ -11,7 +11,9 @@ import { defineConfig, devices } from '@playwright/test'
  * material de revisión: no son golden snapshots ni se comparan con nada.
  */
 const PORT = Number(process.env.E2E_PORT ?? 5199)
-const BASE = `http://localhost:${PORT}/alonso-landing/`
+const PREVIEW = process.env.E2E_PREVIEW === '1'
+const BASE_PATH = process.env.E2E_BASE_PATH ?? '/alonso-landing/'
+const BASE = `http://localhost:${PORT}${BASE_PATH}`
 
 export default defineConfig({
   testDir: 'tests/e2e',
@@ -37,7 +39,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npx vite --port ${PORT} --strictPort`,
+    command: `npx vite ${PREVIEW ? 'preview' : ''} --port ${PORT} --strictPort --base=${BASE_PATH}`,
     url: BASE,
     reuseExistingServer: true,
     timeout: 60_000,

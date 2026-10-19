@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { InterestListPanel } from './components/interest/InterestListPanel'
-import { InterestListProvider } from './components/interest/InterestListContext'
+import { InterestListProvider, useInterestList } from './components/interest/InterestListContext'
 import { InterestListFab } from './components/interest/InterestListFab'
 import { Footer } from './components/layout/Footer'
 import { Header } from './components/layout/Header'
@@ -20,7 +20,9 @@ function Shell() {
   const product = route.name === 'product' ? route.product : undefined
   // La ficha de CarPlay y accesorios abre en su vitrina oscura; el resto es claro.
   const headerScheme = product?.showroom ? 'dark' : 'light'
-  const [ilistOpen, setIlistOpen] = useState(false)
+  const { sharedSelection } = useInterestList()
+  const [ilistOpen, setIlistOpen] = useState(sharedSelection)
+  const closeInterestList = useCallback(() => setIlistOpen(false), [])
 
   // Anuncia el cambio de página a lectores de pantalla.
   const [announcement, setAnnouncement] = useState('')
@@ -49,7 +51,7 @@ function Shell() {
       <Footer product={product} />
       <WhatsAppFab product={product} />
       <InterestListFab onClick={() => setIlistOpen(true)} />
-      <InterestListPanel open={ilistOpen} onClose={() => setIlistOpen(false)} />
+      <InterestListPanel open={ilistOpen} onClose={closeInterestList} />
       <p className="sr-only" aria-live="polite">
         {announcement}
       </p>

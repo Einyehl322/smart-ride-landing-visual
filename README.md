@@ -34,6 +34,7 @@ npm run test:e2e
 - [Estado local original](docs/estado-original.txt): archivos modificados, eliminados y nuevos respecto al commit base.
 - [Inventario SHA-256](docs/inventario-respaldo.json): archivos copiados antes de actualizar este README y añadir la documentación del respaldo.
 - [Validación de la copia](docs/validacion-respaldo.md).
+- [Mi selección](docs/mi-seleccion.md): productos guardados, comparación, consultas y enlaces compartidos.
 
 ## Despliegue
 

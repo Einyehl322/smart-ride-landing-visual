@@ -15,6 +15,8 @@ const PATHS = {
   grid: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
   chat: 'M5 5.5h14A1.5 1.5 0 0 1 20.5 7v8.5A1.5 1.5 0 0 1 19 17h-8l-4.5 3.5V17H5a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 5 5.5ZM8 10.5h8M8 13.5h5',
   check: 'M5 12.5l4.5 4.5L19 7.5',
+  link: 'M10 13a5 5 0 0 0 7 .1l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7-.1l-3 3A5 5 0 0 0 11.1 21l1.7-1.7',
+  compare: 'M4 20V10M12 20V4M20 20v-7M2 20h20',
 } as const
 
 export type IconName = keyof typeof PATHS | 'whatsapp' | 'heart-filled' | 'interest'
