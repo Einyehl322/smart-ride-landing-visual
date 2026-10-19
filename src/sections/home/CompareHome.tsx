@@ -12,9 +12,10 @@ import './home.css'
 const MAX = 3
 const MIN = 2
 
-const GROUPS: { id: Extract<CategoryId, 'intercomunicadores' | 'carplay'>; label: string; initial: string[] }[] = [
+const GROUPS: { id: Extract<CategoryId, 'intercomunicadores' | 'carplay' | 'exploradoras'>; label: string; initial: string[] }[] = [
   { id: 'intercomunicadores', label: 'Intercomunicadores', initial: ['freedconn-hero', 'ejeas-q8', 'p30-pro'] },
   { id: 'carplay', label: 'Pantallas CarPlay', initial: ['carplay-625-freedconn', 'carplay-7', 'carplay-5-dual-bt'] },
+  { id: 'exploradoras', label: 'Luces exploradoras', initial: ['exploradoras-3-ojos', 'exploradoras-5-ojos', 'exploradoras-2-ojos'] },
 ]
 
 /** Elige 2 o 3 modelos y compáralos en la misma tabla que usan las fichas. */
@@ -104,7 +105,7 @@ export function CompareHome() {
           {g.id === 'carplay' ? (
             <FeatureCompare products={products} caption="Comparación de pantallas CarPlay elegidas" />
           ) : (
-            <SpecCompare products={products} caption="Comparación de intercomunicadores elegidos" />
+            <SpecCompare products={products} caption={`Comparación de ${g.id === 'exploradoras' ? 'luces exploradoras' : 'intercomunicadores'} elegidos`} />
           )}
         </div>
       </div>

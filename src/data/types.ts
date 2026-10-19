@@ -1,6 +1,6 @@
 import type { FeatureKey } from './features'
 
-export type CategoryId = 'intercomunicadores' | 'carplay' | 'accesorios'
+export type CategoryId = 'intercomunicadores' | 'carplay' | 'accesorios' | 'exploradoras'
 
 /** Tamaños de pantalla publicados en el catálogo CarPlay. */
 export type ScreenSize = '5"' | '6.25"' | '7"'
@@ -152,6 +152,14 @@ export interface Product {
   category: CategoryId
   /** Tipo comercial dentro de la colección y su ruta existentes. */
   productType?: 'intercom' | 'helmet-audio'
+  /** Datos de las luces, transcritos de la página 5 del catálogo del propietario. */
+  lighting?: {
+    format: string
+    lumens: number
+    modeCount: 3 | 4
+    fourthModePending?: boolean
+    soldOut: boolean
+  }
   name: string
   /**
    * Marca el producto como demostrativo (no disponible para la venta).

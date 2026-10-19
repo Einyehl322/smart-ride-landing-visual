@@ -75,7 +75,7 @@ export function Favorites() {
             <h2 id="favorites-title" className="t-h2">
               Descubre nuestros favoritos.
             </h2>
-            <p>Los modelos más buscados de cada categoría, con precio en soles y consulta directa.</p>
+            <p>Una selección de cada categoría, con precio en soles y consulta directa.</p>
           </div>
           <Link to={categoryPath(tab.id)} className="text-link">
             <span>

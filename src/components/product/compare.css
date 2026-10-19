@@ -162,3 +162,16 @@
 }
 .compare__product .product-choice { margin-block: 0.35rem; }
 .compare__verification { display: block; margin-top: 0.4rem; color: var(--c-slate); font-size: 0.68rem; font-weight: 400; }
+.light-compare__intro { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.light-compare__intro > div { display: grid; gap: 0.4rem; }
+.light-compare__toggle { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px; padding: 0.5rem 0.85rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.8rem; }
+.light-compare__toggle input { width: 18px; height: 18px; accent-color: var(--c-accent); }
+.light-compare__common { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; margin-bottom: 1rem; padding: 1rem; background: var(--c-snow); border: 1px solid var(--line); border-radius: 12px; font-size: 0.76rem; }
+.compare__wrap--lighting .compare__product { width: 230px; }
+.compare__wrap--lighting .compare__table { width: max-content; min-width: 100%; }
+.compare__wrap--lighting .compare__table tr > :first-child { min-width: 145px; max-width: 170px; }
+.compare__wrap--lighting .compare__table td { max-width: 270px; }
+.compare__wrap--lighting .compare__table thead th { vertical-align: top; }
+.light-compare__price-gap, .light-compare__stock { font-size: 0.7rem; line-height: 1.5; color: var(--c-ink-600); }
+.light-compare__stock { color: var(--c-accent-ink); }
+.light-compare__source { margin-top: 0.8rem; font-size: 0.8rem; }

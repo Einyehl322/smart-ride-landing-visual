@@ -7,6 +7,7 @@ import { Favorites } from '../sections/home/Favorites'
 import { FinalCta } from '../sections/home/FinalCta'
 import { Hero } from '../sections/home/Hero'
 import { HowToBuy } from '../sections/home/HowToBuy'
+import { LightingFeature } from '../sections/home/LightingFeature'
 import { Manifesto } from '../sections/home/Manifesto'
 import { Spotlight } from '../sections/home/Spotlight'
 import { WhySmartRide } from '../sections/home/WhySmartRide'
@@ -28,6 +29,7 @@ export function HomePage() {
       <Spotlight />
       <Collections />
       <CarPlayFeature />
+      <LightingFeature />
       <CompareHome />
       <WhySmartRide />
       <HowToBuy />

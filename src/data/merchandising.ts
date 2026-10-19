@@ -37,6 +37,7 @@ export const favorites: { id: CategoryId; label: string; products: Product[] }[]
     ]),
   },
   { id: 'accesorios', label: 'Sensores TPMS', products: getProducts('accesorios') },
+  { id: 'exploradoras', label: 'Luces exploradoras', products: bySlugs(['exploradoras-para-moto', 'exploradoras-3-ojos', 'exploradoras-3-ojos-compactas', 'exploradoras-4-ojos', 'exploradoras-5-ojos', 'exploradoras-2-ojos']) },
 ]
 
 /* ---------- portadas de categoría ---------- */
@@ -48,6 +49,7 @@ export const favorites: { id: CategoryId; label: string; products: Product[] }[]
 export const categoryCovers: Partial<Record<CategoryId, Product | undefined>> = {
   carplay: bySlugs(['carplay-625-magnetico'])[0],
   accesorios: bySlugs(['tpms-kit-solar'])[0],
+  exploradoras: bySlugs(['exploradoras-5-ojos'])[0],
 }
 
 /** Modelo protagonista de la presentación CarPlay de la home. */

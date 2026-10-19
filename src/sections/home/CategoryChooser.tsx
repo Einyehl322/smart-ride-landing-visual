@@ -26,6 +26,7 @@ export function CategoryChooser() {
   const intercom = getCategory('intercomunicadores')
   const carplay = getCategory('carplay')
   const accesorios = getCategory('accesorios')
+  const exploradoras = getCategory('exploradoras')
   const carplayCover = categoryCovers.carplay
   const tpmsCover = categoryCovers.accesorios
 
@@ -67,7 +68,7 @@ export function CategoryChooser() {
           <div className="section-head__copy">
             <p className="eyebrow">Categorías</p>
             <h2 id="chooser-title" className="t-h2">
-              Dos formas de viajar mejor.
+              Equipa cada parte de tu ruta.
             </h2>
           </div>
         </header>
@@ -108,6 +109,19 @@ export function CategoryChooser() {
             </div>
           </Link>
         </div>
+
+        <Link to={categoryPath(exploradoras.id)} className="chooser__strip" data-scheme="light">
+          <span className="chooser__strip-visual"><ProductVisual visual={exploradoras.visual} sizes="240px" /></span>
+          <span className="chooser__strip-copy">
+            <span className="eyebrow">Luces exploradoras</span>
+            <span className="chooser__strip-title">Elige tu formato de luz auxiliar.</span>
+            <span className="chooser__strip-body">{exploradoras.benefit}</span>
+          </span>
+          <span className="chooser__strip-foot">
+            <span className="chooser__count">{summary(exploradoras.id)}</span>
+            <span className="chooser__cta">Ver exploradoras<Icon name="arrow" /></span>
+          </span>
+        </Link>
 
         <Link to={categoryPath(accesorios.id)} className="chooser__strip" data-scheme="light" data-tilt-zone>
           <span className="chooser__strip-visual">

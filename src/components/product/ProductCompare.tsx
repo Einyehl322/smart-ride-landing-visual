@@ -1,4 +1,7 @@
+import { useState } from 'react'
 import { getCategory, getProducts, productCategoryLabel, productPath } from '../../data/catalog'
+import { formatPEN, priceValue } from '../../data/price'
+import { lightingCatalogueUrl } from '../../data/lighting'
 import type { CategoryId, Product, SpecCell } from '../../data/types'
 import { Link } from '../../router/Link'
 import { Price } from '../showroom/Price'
@@ -55,6 +58,8 @@ function Cell({ product, row, cell }: { product: Product; row: CompareRow; cell:
  *  - El precio siempre se muestra.
  */
 export function SpecCompare({ products: list, current, caption = 'Comparativa de modelos' }: { products: Product[]; current?: Product; caption?: string }) {
+  const lighting = list.length > 0 && list.every((p) => p.lighting)
+  const [onlyDifferences, setOnlyDifferences] = useState(true)
   // Unión de especificaciones: el modelo actual no determina las filas ajenas.
   const groups = new Map<string, Set<string>>()
   for (const product of list) {
@@ -76,15 +81,24 @@ export function SpecCompare({ products: list, current, caption = 'Comparativa de
     })),
   )
 
+  const hasDifference = (row: CompareRow) => new Set(row.cells.map((c) => c?.status === 'pending' || !c ? '' : c.display)).size > 1
+  const common = rows.filter((row) => rowHasData(row) && !hasDifference(row))
   const groupedRows: { group: string; rows: CompareRow[] }[] = []
-  for (const row of rows.filter(rowHasData)) {
+  for (const row of rows.filter((row) => rowHasData(row) && (!lighting || !onlyDifferences || hasDifference(row)))) {
     const last = groupedRows[groupedRows.length - 1]
     if (last && last.group === row.groupLabel) last.rows.push(row)
     else groupedRows.push({ group: row.groupLabel, rows: [row] })
   }
 
   return (
-    <div className="compare__wrap">
+    <div className={`compare__wrap ${lighting ? 'compare__wrap--lighting' : ''}`}>
+      {lighting && <>
+        <div className="light-compare__intro">
+          <div><p className="eyebrow">Lo que cambia tu elección</p><p>Formato, modos y precio para elegir tu luz auxiliar.</p></div>
+          <label className="light-compare__toggle"><input type="checkbox" checked={onlyDifferences} onChange={(event) => setOnlyDifferences(event.target.checked)} />Solo diferencias</label>
+        </div>
+        {common.length > 0 && <div className="light-compare__common" aria-label="Características compartidas"><strong>En estos modelos:</strong>{common.map((row) => <span key={row.key}>{row.itemLabel}: {row.cells[0]!.display}</span>)}</div>}
+      </>}
       <div className="compare__scroller" tabIndex={0} role="region" aria-label={`${caption}, desplazable horizontalmente`}>
         <table className="compare__table">
           <caption className="sr-only">{caption}</caption>
@@ -101,6 +115,15 @@ export function SpecCompare({ products: list, current, caption = 'Comparativa de
                     </Link>
                     <span className="compare__name">{p.name}</span>
                     <span className="compare__category">{productCategoryLabel(p)}</span>
+                    {lighting && <>
+                      <Price product={p} />
+                      <span className="light-compare__price-gap">{(() => {
+                        const minimum = Math.min(...list.map((item) => priceValue(item) ?? Infinity))
+                        const price = priceValue(p)
+                        return price === null ? 'Consulta el precio' : price === minimum ? 'Menor precio de esta selección' : `+ ${formatPEN(price - minimum)} frente al menor precio`
+                      })()}</span>
+                      <span className="light-compare__stock">{p.lighting?.soldOut ? 'Agotado en catálogo' : 'Disponibilidad a consultar'}</span>
+                    </>}
                     <ProductChoice product={p} compact />
                     {p.isDemo && <DemoBadge>Fotos pendientes</DemoBadge>}
                     {p === current ? (
@@ -146,7 +169,8 @@ export function SpecCompare({ products: list, current, caption = 'Comparativa de
           ))}
         </table>
       </div>
-      <p className="compare__legend t-muted">— No figura en el catálogo del modelo. «Consultar»: dato pendiente de confirmar.</p>
+      <p className="compare__legend t-muted">{lighting ? 'Lúmenes declarados por el catálogo, sin medición publicada. No permiten deducir distancia ni amplitud del haz. Confirma medidas, consumo y contenido del kit.' : '— No figura en el catálogo del modelo. «Consultar»: dato pendiente de confirmar.'}</p>
+      {lighting && <a className="text-link light-compare__source" href={lightingCatalogueUrl} target="_blank" rel="noopener">Ver catálogo de luces (PDF)<Icon name="external" /></a>}
     </div>
   )
 }

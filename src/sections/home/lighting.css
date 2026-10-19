@@ -1,0 +1,29 @@
+.lighting-home { background: var(--c-snow); }
+.lighting-home__feature { display: grid; grid-template-columns: 1fr 1fr; align-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-stage); background: white; }
+.lighting-home__visual { display: grid; align-content: center; justify-items: center; min-width: 0; padding: clamp(1.25rem, 3vw, 3rem); }
+.lighting-home__visual .pv { width: min(100%, 480px); aspect-ratio: 1; }
+.lighting-home__caption { font-size: 0.7rem; color: var(--fg-muted); margin-top: 0.75rem; }
+.lighting-home__copy { min-width: 0; padding: clamp(1.5rem, 3.5vw, 3.5rem); }
+.lighting-home__copy h3 { font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.1; letter-spacing: -0.045em; margin-block: 0.65rem 1rem; }
+.lighting-home__copy > p:not(.eyebrow) { color: var(--fg-muted); font-size: 0.95rem; line-height: 1.65; }
+.lighting-home__reasons { list-style: none; padding: 0; display: grid; gap: 1rem; margin-top: 1.5rem; }
+.lighting-home__reasons li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.82rem; color: var(--fg-muted); line-height: 1.6; }
+.lighting-home__reasons svg { width: 18px; height: 18px; flex: 0 0 18px; margin-top: 0.2rem; color: var(--c-accent); }
+.lighting-home__reasons strong { display: block; color: var(--fg); font-size: 0.9rem; margin-bottom: 0.1rem; }
+.lighting-home__actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.75rem; }
+.lighting-home__copy > .price { margin-top: 1.4rem; }
+.lighting-home__actions .text-link { font-size: 0.85rem; }
+.lighting-home__selection-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-block: 2.5rem 1.25rem; }
+.lighting-home__selection-head h3 { font-size: 1.5rem; letter-spacing: -0.03em; }
+.lighting-home__selection-head > span { font-size: 0.8rem; color: var(--fg-muted); }
+.lighting-home__selection .ptile { background: white; }
+.lighting-home__note { display: flex; gap: 1rem 2rem; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 1.5rem; margin-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--fg-muted); }
+.lighting-home__note p { max-width: 75ch; }
+.lighting-home__note a { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; color: var(--accent-fg); }
+.lighting-home__note svg { width: 15px; height: 15px; }
+@media (max-width: 899px) {
+  .lighting-home__feature { grid-template-columns: 1fr; }
+  .lighting-home__visual { padding-bottom: 0.5rem; }
+  .lighting-home__visual .pv { max-width: 380px; }
+  .lighting-home__caption { text-align: center; }
+}

@@ -19,10 +19,10 @@ interface Props {
  */
 export function ContactActions({ product, size = 'md', withBuy, className = '' }: Props) {
   const price = product ? specDisplay(product.commerce.price) : null
-  const message = product ? productWhatsappMessage(product.name, price) : site.contact.whatsappDefaultMessage
+  const message = product?.lighting?.soldOut ? `Hola, me interesa ${product.name}. Figura agotado en el catálogo. ¿Tienen reposición o una alternativa?` : product ? productWhatsappMessage(product.name, price) : site.contact.whatsappDefaultMessage
   const href = whatsappHref(message)
   const sm = size === 'sm' ? 'btn--sm' : ''
-  const label = product ? 'Consultar este modelo' : 'Consultar por WhatsApp'
+  const label = product?.lighting?.soldOut ? 'Consultar reposición' : product ? 'Consultar este modelo' : 'Consultar por WhatsApp'
   const buyUrl = product ? specDisplay(product.commerce.buyUrl) : null
 
   return (

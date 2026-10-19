@@ -31,6 +31,7 @@ interface Props {
 function typeLabel(product: Product) {
   if (product.category === 'carplay') return 'Pantalla CarPlay'
   if (product.category === 'accesorios') return 'Sensor TPMS'
+  if (product.category === 'exploradoras') return 'Luz exploradora'
   return product.productType === 'helmet-audio' ? 'Audífono para casco' : 'Intercomunicador'
 }
 

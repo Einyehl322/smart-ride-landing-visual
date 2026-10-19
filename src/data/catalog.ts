@@ -15,6 +15,7 @@ import type { Category, CategoryId, Product, SpecCell, SpecGroup, Visual } from 
 import { spec, specPending, specDiscrepancy } from './types'
 import { accessoryProducts, carplayProducts } from './showroom'
 import { positionCatalogue } from './productPositioning'
+import { lightingProducts } from './lighting'
 
 /* ---------- visuales compartidos ---------- */
 
@@ -118,6 +119,18 @@ export const categories: Category[] = [
     benefit: 'Presión y temperatura de tus llantas en tiempo real, con alerta automática.',
     beats: [],
     visual: { kind: 'render', render: 'pending', alt: 'Sensores TPMS para moto, fotografía pendiente', label: 'Fotografía próximamente' },
+  },
+  {
+    id: 'exploradoras', slug: 'exploradoras', name: 'Exploradoras', eyebrow: 'Luces auxiliares para moto',
+    headline: 'Elige cómo equipas tu próxima ruta.',
+    lede: 'Nueve referencias de luces exploradoras del catálogo SMART RIDE. Compara formatos, modos de luz y precio; confirma el montaje que necesita tu moto.',
+    benefit: 'Luz blanca, amarilla y mixta en formatos tipo cañón y de varios ojos.',
+    beats: [
+      { title: 'Tu formato', body: 'Diseños tipo cañón, óptica circular y opciones de dos a cinco ojos.', focus: { x: 50, y: 50, zoom: 1 } },
+      { title: 'Tus opciones de luz', body: 'Blanco, amarillo y mixto; algunas referencias también nombran un modo parpadeante.', focus: { x: 50, y: 50, zoom: 1 } },
+      { title: 'Tu instalación', body: '12–24 V declarados. Te ayudamos a confirmar soporte, consumo y contenido del kit.', focus: { x: 50, y: 50, zoom: 1 } },
+    ],
+    visual: lightingProducts.find((p) => p.slug === 'exploradoras-5-ojos')!.visual,
   },
 ]
 
@@ -494,6 +507,7 @@ export const products: Product[] = positionCatalogue([
   ejeasV6ProPlus,
   ...carplayProducts,
   ...accessoryProducts,
+  ...lightingProducts,
 ])
 
 /* ---------- consultas ---------- */

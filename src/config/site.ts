@@ -25,9 +25,9 @@ export const site = {
 
   seo: {
     siteUrl: '',
-    defaultTitle: 'SMART RIDE — Intercomunicadores y pantallas CarPlay para motocicleta',
+    defaultTitle: 'SMART RIDE — Tecnología y luces exploradoras para motocicleta',
     defaultDescription:
-      'Intercomunicadores Bluetooth y pantallas CarPlay para motocicleta. Tecnología para disfrutar cada ruta en Perú.',
+      'Intercomunicadores Bluetooth, pantallas CarPlay, luces exploradoras y sensores TPMS para motocicleta en Perú. Compara y consulta por WhatsApp.',
     indexable: false,
   },
 

@@ -4,7 +4,7 @@ Recopilación del código y documentos disponibles en el workspace al 19/10/2026
 
 ## Propósito y configuración
 
-SMART RIDE presenta tecnología para motociclistas en Perú: intercomunicadores, audífonos Bluetooth para casco, pantallas CarPlay y accesorios TPMS. El recorrido comercial termina en consultas por WhatsApp con nombre y precio del modelo cuando corresponde. No hay backend de pedidos ni checkout.
+SMART RIDE presenta tecnología para motociclistas en Perú: intercomunicadores, audífonos Bluetooth para casco, pantallas CarPlay, accesorios TPMS y luces exploradoras. Hay 27 referencias en cuatro categorías. El recorrido comercial termina en consultas por WhatsApp con nombre y precio del modelo cuando corresponde. No hay backend de pedidos ni checkout.
 
 `src/config/site.ts` centraliza marca, contacto, mensajes y SEO. Actualmente `demoMode: true`, `seo.indexable: false` y `siteUrl` vacío. Correo, dirección, horario y redes están pendientes. La lista de interés se guarda en el navegador bajo `smartride-interest-list`.
 
@@ -23,10 +23,11 @@ Orden real de `src/pages/HomePage.tsx`:
 5. `Spotlight`: selección editorial oscura.
 6. `Collections`: colecciones según necesidades y especificaciones.
 7. `CarPlayFeature`: pantalla protagonista.
-8. `CompareHome`: comparación desde la portada.
-9. `WhySmartRide`: argumentos de confianza.
-10. `HowToBuy`: proceso de consulta y compra.
-11. `FinalCta`: cierre y contacto.
+8. `LightingFeature`: luces exploradoras, modelos de entrada y acceso a las nueve referencias del PDF.
+9. `CompareHome`: comparación desde la portada, incluidas las luces.
+10. `WhySmartRide`: argumentos de confianza.
+11. `HowToBuy`: proceso de consulta y compra.
+12. `FinalCta`: cierre y contacto.
 
 La cabecera y el menú móvil pasan a una presentación clara. El footer evita repetir campos sin completar. Las fichas separan fotografía e información en columnas en escritorio y las apilan en móvil.
 
@@ -36,6 +37,7 @@ La cabecera y el menú móvil pasan a una presentación clara. El footer evita r
 - CSS por componente, tokens compartidos y animaciones GSAP/ScrollTrigger.
 - Router propio en `src/router/`, View Transitions y restauración de scroll.
 - `src/data/catalog.ts`: catálogo y categorías; `showroom.ts`: CarPlay y TPMS; `types.ts`: tipos y estados de verificación.
+- `src/data/lighting.ts`: nueve luces exploradoras del PDF del propietario, fotos, precios, beneficios y condiciones de instalación.
 - `src/data/merchandising.ts`: favoritos, spotlight, portadas y colecciones derivados del catálogo; omite slugs inexistentes.
 - `src/data/media.ts` y `productAssets.ts`: recursos y detección por slug.
 - `src/components/product/ProductTile.tsx`: tarjeta común de home, categorías, showroom y relacionados.
@@ -43,13 +45,15 @@ La cabecera y el menú móvil pasan a una presentación clara. El footer evita r
 - `src/components/interest/`: lista de interés y consulta comercial.
 - `src/components/viewer360/`: secuencias reales. El visor de producto prioriza GLB, secuencia 360° o fotografía según recursos disponibles; Three.js se carga aparte.
 
-Las categorías son `/intercomunicadores`, `/carplay` y `/accesorios`; las fichas añaden el slug. El router antepone la base de Vite. Los slugs de CarPlay retirados llevan a la categoría.
+Las categorías son `/intercomunicadores`, `/carplay`, `/accesorios` y `/exploradoras`; las fichas añaden el slug. El router antepone la base de Vite. Los slugs de CarPlay retirados llevan a la categoría.
 
 ## Catálogo e imágenes
 
 Precios en soles, disponibilidad y compatibilidad por consulta. Los datos distinguen confirmados, pendientes y discrepancias. El comparador diferencia ausencia de dato de dato pendiente; documentos antiguos pueden describir el comportamiento anterior.
 
 Los audífonos `helmet-audio` no deben anunciar comunicación de grupo; el rediseño corrige también la clasificación de V12. CarPlay y TPMS conservan fotos referenciales identificadas y fuentes en `showroom.ts`.
+
+Las nueve luces conservan fotos y datos de la página 5 de `SMART_RIDE_CATALOGO_PRO.pdf`, accesible como `public/catalogo-exploradoras.pdf`. Los dos agotados se marcan según el catálogo. Lúmenes, compatibilidad y modos se presentan con sus límites; los cuatro modos de las variantes de cuatro y cinco ojos necesitan confirmar el cuarto. Ver [luces-exploradoras.md](luces-exploradoras.md).
 
 Se conservan todos los recursos del proyecto en `src/assets/` y originales de `assets-src/`, además de los WebP nuevos de V12 de 480, 960 y 1448 px. `npm run images` requiere ImageMagick 7. Las secuencias 360° y modelos deben corresponder a material real.
 

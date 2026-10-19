@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { expectNoHorizontalOverflow, isDesktop, ROUTES, scrollThrough, trackErrors } from './helpers'
 
-const SECTIONS = ['hero', 'categorias', 'favoritos', 'manifiesto', 'spotlight', 'colecciones', 'carplay', 'comparar', 'por-que', 'comprar', 'cta-final']
+const SECTIONS = ['hero', 'categorias', 'favoritos', 'manifiesto', 'spotlight', 'colecciones', 'carplay', 'exploradoras', 'comparar', 'por-que', 'comprar', 'cta-final']
 
 test.describe('Home', () => {
   test('presenta las secciones comerciales en orden y sin errores', async ({ page }) => {
@@ -40,7 +40,7 @@ test.describe('Home', () => {
     const section = page.locator('#favoritos')
     await section.scrollIntoViewIfNeeded()
     const tabs = section.getByRole('tab')
-    await expect(tabs).toHaveCount(3)
+    await expect(tabs).toHaveCount(4)
     await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
 
     const slugs = () => section.getByTestId('product-tile').evaluateAll((els) => els.map((e) => e.getAttribute('data-slug')))
@@ -105,7 +105,7 @@ test.describe('Home', () => {
     test.skip(!isDesktop(page), 'navegación completa solo en escritorio')
     await page.goto(ROUTES.home)
     const nav = page.getByRole('navigation', { name: 'Principal' })
-    for (const label of ['Inicio', 'Intercomunicadores', 'CarPlay', 'Accesorios', 'Contacto']) {
+    for (const label of ['Inicio', 'Intercomunicadores', 'CarPlay', 'Accesorios', 'Exploradoras', 'Contacto']) {
       await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible()
     }
     await page.getByTestId('site-header').getByRole('link', { name: 'Ver catálogo' }).click()

@@ -22,7 +22,7 @@ export function CategoryPage({ category }: { category: Category }) {
 
   return (
     <>
-      {category.id === 'intercomunicadores' ? (
+      {category.id === 'intercomunicadores' || category.id === 'exploradoras' ? (
         <CollectionCategory category={category} />
       ) : (
         <Showroom category={category.id} level="h1" />
@@ -71,7 +71,7 @@ function CollectionCategory({ category }: { category: Category }) {
   const grid = useRef<HTMLDivElement>(null)
   const { nav } = useRouter()
   const all = getProducts(category.id)
-  const types = (['intercom', 'helmet-audio'] as const).filter((t) => all.some((p) => typeOf(p) === t))
+  const types = category.id === 'intercomunicadores' ? (['intercom', 'helmet-audio'] as const).filter((t) => all.some((p) => typeOf(p) === t)) : []
   const [type, setType] = useState<TypeFilter>('all')
   const [sort, setSort] = useState<Sort>('featured')
   const list = sortProducts(type === 'all' ? all : all.filter((p) => typeOf(p) === type), sort)
