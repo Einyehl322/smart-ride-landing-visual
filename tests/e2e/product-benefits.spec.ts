@@ -3,9 +3,9 @@ import { trackErrors } from './helpers'
 
 test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
-const intercom = ['y13-pro', 'freedconn-hero', 's7-pro', 's7', 'q58-max', 'p30-pro', 'v12-earphone', 'ejeas-q8', 'ejeas-v6-pro-plus']
+const intercom = ['y13-pro', 'freedconn-hero', 's7-pro', 's7', 'q58-max', 'p30-pro', 'y12', 'ejeas-q8', 'ejeas-v6-pro-plus']
 const carplay = ['carplay-625-freedconn', 'carplay-625-magnetico', 'carplay-7-waterproof', 'carplay-5-camaras-2k', 'carplay-5-dual-bt', 'carplay-5-navegacion']
-const accessories = ['tpms-kit-solar', 'tpms-compacto']
+const accessories = ['tpms-kit-solar', 'tpms-panel-solar']
 const routes = [
   ...intercom.map((slug) => `intercomunicadores/${slug}`),
   ...carplay.map((slug) => `carplay/${slug}`),
@@ -69,13 +69,13 @@ test('Beneficios: V6 diferencia seis vinculados de dos en conversación y señal
   expect(await page.locator('#especificaciones .specs__verification').count()).toBeGreaterThan(1)
 })
 
-test('Beneficios: V12 y S7 se venden como audio individual y no como comunicación grupal', async ({ page }) => {
-  for (const slug of ['v12-earphone', 's7']) {
+test('Beneficios: Y12 y S7 se venden como audio individual y no como comunicación grupal', async ({ page }) => {
+  for (const slug of ['y12', 's7']) {
     await page.goto(`./intercomunicadores/${slug}`)
     await expect(page.locator('.phero__meta')).toContainText('Audífonos Bluetooth para casco')
     await expect(page.locator('.phero__facts')).toContainText('Audio individual')
   }
-  await page.goto('./intercomunicadores/v12-earphone')
+  await page.goto('./intercomunicadores/y12')
   const copy = await page.locator('.phero, #resumen, #beneficios').allInnerTexts()
   expect(copy.join(' ')).not.toMatch(/40\s?mm|graves profundos|aumenta tu visibilidad|sin distracciones|controles con guantes|hasta 12 h/i)
   await expect(page.locator('#especificaciones')).not.toContainText('IP55')
@@ -83,13 +83,14 @@ test('Beneficios: V12 y S7 se venden como audio individual y no como comunicaci�
 })
 
 test('Beneficios: los TPMS no inventan una prestación superior por tener mayor precio', async ({ page }) => {
-  await page.goto('./?seleccion=tpms-kit-solar,tpms-compacto')
+  await page.goto('./?seleccion=tpms-kit-solar,tpms-panel-solar')
   const dialog = page.getByRole('dialog', { name: 'Mi selección', exact: true })
   for (const box of await dialog.getByRole('checkbox').all()) await box.check()
   await dialog.getByRole('button', { name: 'Comparar (2/3)', exact: true }).click()
   const compare = page.getByRole('dialog', { name: 'Compara tu selección' }).locator('.fcompare')
   await expect(compare.getByLabel('Características compartidas')).toContainText('Presión y temperatura')
-  await expect(compare.locator('.fcompare__matching')).toContainText('Las funciones publicadas coinciden')
+  // El modelo con panel solar publica además su duración: es la única diferencia.
+  await expect(compare.locator('tbody')).toContainText('Duración')
   await expect(compare.locator('thead')).toContainText('140.00')
   await expect(compare.locator('thead')).toContainText('Menor precio de esta selección')
   await page.keyboard.press('Escape')

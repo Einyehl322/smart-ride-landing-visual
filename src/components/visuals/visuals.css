@@ -197,12 +197,12 @@
 
 /* ---------- V12 Pro: animación RGB premium ---------- */
 
-[data-product-slug="v12-earphone"] .stage__visual {
+[data-product-slug="y12"] .stage__visual {
   animation: v12-float 6s ease-in-out infinite;
   filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.5));
 }
 
-[data-product-slug="v12-earphone"] .stage__light {
+[data-product-slug="y12"] .stage__light {
   background:
     radial-gradient(45% 40% at 65% 45%, rgb(112 136 255 / 0.15), transparent 70%),
     radial-gradient(35% 25% at 68% 42%, rgb(255 80 120 / 0.12), transparent 60%),
@@ -221,7 +221,7 @@
 }
 
 /* Efecto de brillo al pasar el cursor sobre la tarjeta del V12 */
-.ptile:hover [data-product-slug="v12-earphone"] .stage__visual {
+.ptile:hover [data-product-slug="y12"] .stage__visual {
   transform: translateY(-4px) scale(1.03);
   filter: drop-shadow(0 24px 48px rgb(112 136 255 / 0.25));
   transition: transform 0.6s var(--ease-out), filter 0.6s var(--ease-out);

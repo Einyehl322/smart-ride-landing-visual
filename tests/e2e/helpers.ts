@@ -7,7 +7,7 @@ export const ROUTES = {
   carplay: './carplay',
   accesorios: './accesorios',
   intercomProduct: './intercomunicadores/freedconn-hero',
-  audioProduct: './intercomunicadores/v12-earphone',
+  audioProduct: './intercomunicadores/y12',
   carplayProduct: './carplay/carplay-625-freedconn',
   tpmsProduct: './accesorios/tpms-kit-solar',
 } as const

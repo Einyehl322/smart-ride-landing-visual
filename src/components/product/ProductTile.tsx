@@ -76,7 +76,7 @@ export function ProductTile({ product, shared, compare, sizes = '(min-width: 110
           {product.badge ? <span className="badge">{product.badge}</span> : null}
           {product.showroom?.screen ? <span className="ptile__chip">{product.showroom.screen}</span> : null}
         </div>
-        {product.showroom?.reference ? <span className="ptile__ref">Imagen referencial</span> : null}
+        {product.showroom?.reference || product.referencePhoto ? <span className="ptile__ref">Imagen referencial</span> : null}
         <InterestToggleButton slug={product.slug} compact className="ptile__interest" />
       </div>
 

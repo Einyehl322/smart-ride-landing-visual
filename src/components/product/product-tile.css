@@ -122,6 +122,14 @@
   pointer-events: none;
 }
 
+/* Sobre fotografías oscuras, en píldora clara para que se lea. */
+.ptile--photo .ptile__ref {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.88);
+  color: var(--c-ink-700);
+}
+
 .ptile__interest {
   position: absolute;
   top: 10px;

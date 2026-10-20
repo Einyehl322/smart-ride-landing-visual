@@ -4,7 +4,7 @@ import { ROUTES, trackErrors } from './helpers'
 test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
 const STORAGE = 'smartride-interest-list'
-const saved = ['y13-pro', 's7-pro', 'q58-max', 'p30-pro', 'carplay-625-freedconn', 'v12-earphone']
+const saved = ['y13-pro', 's7-pro', 'q58-max', 'p30-pro', 'carplay-625-freedconn', 'y12']
 
 async function seed(page: Page, slugs: unknown = saved) {
   await page.addInitScript(({ key, value }) => {
@@ -35,7 +35,7 @@ test('Mi selección: añadir desde el catálogo, fotos, datos, enlaces y persist
   const href = await card.getByRole('link', { name: 'Consultar Y13 Pro por WhatsApp' }).getAttribute('href')
   const message = new URL(href!).searchParams.get('text')!
   expect(message).toContain('Y13 Pro')
-  expect(message).toContain('S/ 75.00')
+  expect(message).toContain('S/ 40.00')
   expect(message).toContain('compatibilidad')
   await expect(dialog.getByRole('button', { name: 'Comparar modelos' })).toBeDisabled()
   await page.keyboard.press('Escape')
@@ -55,7 +55,7 @@ test('Mi selección: comparar hasta tres modelos del mismo tipo y consultar solo
   const dialog = await openList(page)
   await dialog.getByRole('checkbox', { name: 'Comparar Y13 Pro', exact: true }).check()
   await expect(dialog.getByRole('checkbox', { name: 'Comparar CarPlay 6.25" FreedConn', exact: true })).toBeDisabled()
-  await expect(dialog.getByRole('checkbox', { name: /Comparar V12/ })).toBeDisabled()
+  await expect(dialog.getByRole('checkbox', { name: /Comparar Y12/ })).toBeDisabled()
   await dialog.getByRole('checkbox', { name: 'Comparar S7 PRO', exact: true }).check()
   await dialog.getByRole('checkbox', { name: 'Comparar Q58 MAX', exact: true }).check()
   await expect(dialog.getByRole('checkbox', { name: 'Comparar P30 PRO', exact: true })).toBeDisabled()

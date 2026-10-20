@@ -181,14 +181,14 @@ export const accessoryProducts: Product[] = [
     summary: 'Sensores de presión y temperatura de llantas para moto, con pantalla recargable por USB y alerta automática.',
   }),
   showroomProduct({
-    slug: 'tpms-compacto',
-    reference: { source: 'Amazon · TPMS M3 para moto (B0CYT1QC8B)', url: 'https://www.amazon.com/dp/B0CYT1QC8B' },
+    slug: 'tpms-panel-solar',
     category: 'accesorios',
-    name: 'TPMS para moto — Compacto',
+    name: 'Sensores TPMS para moto con panel solar',
     price: 110,
-    features: tpmsFeatures,
+    features: ['liveReadings', 'displayRuntime12h', 'usbDisplay', 'sensorBattery', 'waterproof', 'autoAlert'],
     tagline: 'Presión y temperatura de tus llantas, en tiempo real.',
-    summary: 'Sensores de presión y temperatura de llantas para moto, con pantalla recargable por USB y alerta automática.',
+    summary:
+      'Sensores de presión y temperatura de llantas para moto con panel solar. Pantalla recargable por USB, duración de 12 horas, sensores con batería de hasta 2 años, impermeable y con alerta automática.',
   }),
 ]
 
@@ -197,6 +197,9 @@ export const accessoryProducts: Product[] = [
  * romper enlaces compartidos.
  */
 export const retiredSlugs: Record<string, CategoryId> = {
+  // Luces agotadas retiradas el 19/10/2026; su lugar lo ocupan los kits de neblineros.
+  'exploradoras-tipo-canon': 'exploradoras',
+  'luces-exploradoras-12000': 'exploradoras',
   'carplay-625-full': 'carplay',
   'carplay-81-hd': 'carplay',
   'carplay-7-magnetica': 'carplay',

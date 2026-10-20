@@ -152,11 +152,11 @@ export interface Product {
   category: CategoryId
   /** Tipo comercial dentro de la colección y su ruta existentes. */
   productType?: 'intercom' | 'helmet-audio'
-  /** Datos de las luces, transcritos de la página 5 del catálogo del propietario. */
+  /** Datos de las luces: página 5 del catálogo del propietario y fichas de los kits de neblineros. */
   lighting?: {
     format: string
     lumens: number
-    modeCount: 3 | 4
+    modeCount: number
     fourthModePending?: boolean
     soldOut: boolean
   }
@@ -168,6 +168,11 @@ export interface Product {
   isDemo: boolean
   /** Etiqueta opcional: "Nuevo", "Popular", etc. */
   badge?: string
+  /**
+   * La fotografía no es de la unidad que se vende (otro modelo de la misma
+   * línea o del mercado): se muestra como "Imagen referencial".
+   */
+  referencePhoto?: boolean
   tagline: string
   summary: string
   /** Beneficios para elegir el modelo, vinculados a datos y condiciones publicados. */

@@ -2,12 +2,12 @@
   "images": [
     {
       "name": "hero",
-      "width": 960,
-      "height": 960,
-      "alpha": false,
+      "width": 775,
+      "height": 646,
+      "alpha": true,
       "widths": [
         640,
-        960
+        775
       ]
     }
   ]

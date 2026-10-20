@@ -51,7 +51,7 @@ export const media = {
     width: 3840,
     height: 3840,
   },
-  /** V12 Pro: audífono con iluminación RGB (fuente PNG 1448 × 1086 en src/assets/media). */
+  /** Y12: audífono con iluminación RGB (fuente PNG 1448 × 1086 en src/assets/media). */
   v12Hero: {
     src: v12Pro1448,
     srcSet: `${v12Pro480} 480w, ${v12Pro960} 960w, ${v12Pro1448} 1448w`,

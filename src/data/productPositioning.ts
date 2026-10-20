@@ -118,7 +118,7 @@ function position(product: Product, catalogue: Product[]): Position | null {
         benefit('Compara también la protección', 'La protección IP67 publicada es otro dato para elegir tu equipo, además del precio.', 'Resistencia al agua: ' + published('Resistencia al agua')),
       ], conditions: batteryConditions,
     }
-    case 'v12-earphone': return {
+    case 'y12': return {
       headline: 'Tu casco. Tu música. Tu estilo.',
       summary: 'Audio Bluetooth individual para música y llamadas, con el diseño RGB que muestra su fotografía. Para personalizar tu equipo cuando tu prioridad es el audio del teléfono.',
       audience: 'Audio individual y un diseño con estilo RGB',
@@ -223,25 +223,25 @@ function position(product: Product, catalogue: Product[]): Position | null {
       benefits: [navigation, compact, optionalTpms], sources: [carplaySource],
       conditions: 'Confirma compatibilidad de teléfono, modo de audio y sensores opcionales. El nombre «Navegación» no implica GPS autónomo.',
     }
-    case 'tpms-compacto': {
+    case 'tpms-panel-solar': {
       const peers = catalogue.filter((p) => p.category === 'accesorios').map(priceValue).filter((n): n is number => n !== null)
       const lowest = peers.length > 0 && priceValue(product) === Math.min(...peers)
       return {
         headline: lowest ? 'Vigila tus llantas con una inversión menor.' : 'Tus llantas también tienen algo que decir.',
-        summary: 'Consulta presión y temperatura y recibe alertas automáticas desde una pantalla recargable por USB.',
+        summary: 'Consulta presión y temperatura y recibe alertas automáticas, con panel solar, pantalla recargable por USB y 12 horas de duración declaradas.',
         audience: 'Quienes quieren empezar a vigilar presión y temperatura',
-        reason: lowest ? 'Es el TPMS de menor precio del catálogo actual y publica las mismas funciones de monitorización que el otro kit.' : 'Reúne presión, temperatura y alertas automáticas en una pantalla recargable por USB.',
-        facts: ['Presión y temperatura', 'Alerta automática', 'Pantalla recargable USB'], benefits: [pressure, alert, usb],
-        conditions: 'Confirma válvulas compatibles, medidas y piezas del kit. El catálogo publica las mismas funciones que el otro TPMS; no se atribuye una precisión distinta.',
+        reason: lowest ? 'Es el TPMS de menor precio del catálogo actual y suma panel solar y una duración de 12 horas publicada.' : 'Reúne presión, temperatura y alertas automáticas, con panel solar y recarga USB.',
+        facts: ['Presión y temperatura', 'Panel solar', '12 h de duración'], benefits: [pressure, alert, usb],
+        conditions: 'Datos facilitados por el propietario el 19/10/2026. Confirma válvulas compatibles, medidas y piezas del kit; no se atribuye una precisión distinta a la del otro TPMS.',
       }
     }
     case 'tpms-kit-solar': return {
       headline: 'Lleva el pulso de tus llantas a la vista.',
       summary: 'Presión, temperatura y alertas automáticas en una pantalla con recarga USB publicada. Para sumar información de tus llantas al equipo de ruta.',
       audience: 'Quienes quieren consultar sus llantas desde una pantalla',
-      reason: 'Reúne lectura de presión, temperatura y alertas. Confirma qué cambia en el kit frente al Compacto antes de elegir.',
+      reason: 'Reúne lectura de presión, temperatura y alertas. Confirma qué cambia en el kit frente a los sensores con panel solar antes de elegir.',
       facts: ['Presión y temperatura', 'Alerta automática', 'Recarga USB publicada'], benefits: [pressure, alert, usb],
-      conditions: 'La carga solar no está confirmada para la unidad disponible. El catálogo publica las mismas funciones que el Compacto; confirma qué justifica la diferencia de precio y qué incluye cada kit.',
+      conditions: 'La carga solar no está confirmada para la unidad disponible. Comparte las funciones de monitorización con los sensores con panel solar; confirma qué justifica la diferencia de precio y qué incluye cada kit.',
       checkBeforeBuying: 'Carga solar por confirmar; recarga USB publicada.',
     }
     default: return null

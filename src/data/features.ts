@@ -49,6 +49,7 @@ export const FEATURES = {
   /* Sensores TPMS */
   liveReadings: { label: 'Presión y temperatura en tiempo real', short: 'Presión y temperatura', icon: 'pulse', row: 'Presión y temperatura en tiempo real' },
   usbDisplay: { label: 'Pantalla recargable USB', short: 'Recarga USB', icon: 'usb', row: 'Pantalla recargable USB' },
+  displayRuntime12h: { label: 'Duración de 12 horas', short: '12 h de duración', icon: 'battery', row: 'Duración', value: '12 horas' },
   sensorBattery: { label: 'Sensores con batería hasta 2 años', short: 'Batería hasta 2 años', icon: 'battery', row: 'Batería de sensores', value: 'Hasta 2 años' },
   waterproof: { label: 'Impermeable', short: 'Impermeable', icon: 'drop', row: 'Impermeable' },
   autoAlert: { label: 'Alerta automática', short: 'Alerta automática', icon: 'alert', row: 'Alerta automática' },

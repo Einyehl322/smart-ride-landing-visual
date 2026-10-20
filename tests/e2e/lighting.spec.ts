@@ -4,16 +4,38 @@ import { expectNoHorizontalOverflow, trackErrors } from './helpers'
 test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
 const products = [
-  { slug: 'exploradoras-tipo-canon', name: 'Exploradoras tipo cañón', price: '89.90', lumens: '12,000+' },
   { slug: 'exploradoras-3-ojos', name: 'Exploradoras de 3 ojos', price: '65.00', lumens: '8,000+' },
   { slug: 'exploradoras-canon-10000', name: 'Exploradoras para tipo cañón', price: '85.90', lumens: '10,000+' },
   { slug: 'exploradoras-5-ojos', name: 'Exploradoras de 5 ojos', price: '85.00', lumens: '14,000+' },
   { slug: 'exploradoras-4-ojos', name: 'Exploradoras de 4 ojos', price: '75.00', lumens: '11,000+' },
   { slug: 'exploradoras-3-ojos-compactas', name: 'Exploradoras de 3 ojos — Compactas', price: '70.00', lumens: '9,000+' },
-  { slug: 'luces-exploradoras-12000', name: 'Luces exploradoras', price: '85.90', lumens: '12,000+' },
   { slug: 'exploradoras-2-ojos', name: 'Exploradoras de 2 ojos ultra potentes', price: '125.00', lumens: '15,000+' },
   { slug: 'exploradoras-para-moto', name: 'Exploradoras para moto', price: '60.00', lumens: '7,500+' },
 ]
+
+const kits = [
+  { slug: 'neblineros-led-proyector', name: 'Neblineros LED tipo proyector — Kit x2', price: '180.00', lumens: '28,000' },
+  { slug: 'neblineros-led-doble-lente', name: 'Neblineros LED doble lente — Kit x2', price: '140.00', lumens: '18,000' },
+]
+
+for (const kit of kits) {
+  test(`Exploradoras: ${kit.slug} presenta el kit con sus datos y sin inventar alcance`, async ({ page }) => {
+    const errors = trackErrors(page)
+    await page.goto(`./exploradoras/${kit.slug}`)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(kit.name)
+    const hero = page.locator('.phero')
+    await expect(hero.locator('.price')).toContainText(kit.price)
+    await expect(hero.locator('.phero__facts')).toContainText(kit.lumens)
+    await expect(hero.locator('.phero__facts')).toContainText('6 modos')
+    await expect(page.locator('#beneficios .benefit')).toHaveCount(3)
+    await expect(page.locator('#especificaciones')).toContainText('12–24 V')
+    await expect(page.locator('#especificaciones')).toContainText('interruptor, cableado y soportes')
+    await expect(page.locator('#especificaciones')).not.toContainText('IP67')
+    await expect.poll(() => hero.locator('img').first().evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
+    await expectNoHorizontalOverflow(page)
+    expect(errors).toEqual([])
+  })
+}
 
 for (const product of products) {
   test(`Exploradoras: ${product.slug} tiene ficha, foto del PDF y beneficios respaldados`, async ({ page }) => {
@@ -58,12 +80,12 @@ test('Exploradoras: sección propia en la landing y pestaña de favoritos', asyn
   expect(errors).toEqual([])
 })
 
-test('Exploradoras: las nueve tarjetas conservan precios, fotos y agotados del PDF; se pueden ordenar', async ({ page }) => {
+test('Exploradoras: las nueve tarjetas conservan precios y fotos, sin agotados; se pueden ordenar', async ({ page }) => {
   await page.goto('./exploradoras')
   const cards = page.getByTestId('product-tile')
   await expect(cards).toHaveCount(9)
   await expect(page.getByRole('group', { name: 'Filtrar por tipo' })).toHaveCount(0)
-  for (const product of products) {
+  for (const product of [...products, ...kits]) {
     const card = page.locator(`[data-testid="product-tile"][data-slug="${product.slug}"]`)
     await expect(card.locator('.price')).toContainText(product.price)
     await expect(card.locator('.ptile__type')).toHaveText('Luz exploradora')
@@ -71,11 +93,11 @@ test('Exploradoras: las nueve tarjetas conservan precios, fotos y agotados del P
     await card.scrollIntoViewIfNeeded()
     await expect.poll(() => card.locator('img').evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
   }
-  await expect(cards.locator('.ptile__avail').filter({ hasText: 'Agotado en catálogo' })).toHaveCount(2)
+  await expect(cards.locator('.ptile__avail').filter({ hasText: 'Agotado' })).toHaveCount(0)
   await page.getByRole('combobox', { name: 'Ordenar', exact: true }).selectOption('price-asc')
   await expect(cards.first()).toHaveAttribute('data-slug', 'exploradoras-para-moto')
   await page.getByRole('combobox', { name: 'Ordenar', exact: true }).selectOption('price-desc')
-  await expect(cards.first()).toHaveAttribute('data-slug', 'exploradoras-2-ojos')
+  await expect(cards.first()).toHaveAttribute('data-slug', 'neblineros-led-proyector')
   await expectNoHorizontalOverflow(page)
 })
 
@@ -99,20 +121,17 @@ test('Exploradoras: comparación con diferencias, precios y voltaje compartido',
   await comparison.screenshot({ path: test.info().outputPath('luces-comparacion.png') })
 })
 
-test('Exploradoras: cuarto modo sin inventar y referencias agotadas con reposición', async ({ page }) => {
+test('Exploradoras: cuarto modo sin inventar y sin referencias agotadas', async ({ page }) => {
   for (const slug of ['exploradoras-4-ojos', 'exploradoras-5-ojos']) {
     await page.goto(`./exploradoras/${slug}`)
     await expect(page.locator('.phero .product-choice__check')).toContainText('solo se nombran 3')
     await expect(page.locator('#especificaciones')).toContainText('cuarto modo por confirmar')
     expect((await page.locator('.phero, #especificaciones').allInnerTexts()).join(' ')).not.toContain('parpadeante')
   }
+  // Las dos referencias agotadas se retiraron: sus enlaces ya no abren ficha.
   for (const slug of ['exploradoras-tipo-canon', 'luces-exploradoras-12000']) {
     await page.goto(`./exploradoras/${slug}`)
-    const hero = page.locator('.phero')
-    await expect(hero.locator('.phero__avail')).toHaveText('Agotado en catálogo')
-    const link = hero.getByRole('link', { name: 'Consultar reposición', exact: true })
-    const message = new URL((await link.getAttribute('href'))!).searchParams.get('text')!
-    expect(message).toContain('reposición')
+    await expect(page.locator('.phero')).toHaveCount(0)
   }
 })
 

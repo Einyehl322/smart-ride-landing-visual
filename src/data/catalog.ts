@@ -35,12 +35,12 @@ const displayGraphite: Visual = {
   alt: 'Render ilustrativo de pantalla CarPlay para motocicleta con interfaz de navegación',
 }
 
-const v12Visual: Visual = {
+const y12Visual: Visual = {
   kind: 'image',
   ...media.v12Hero,
   fit: 'contain',
   presentation: 'photograph',
-  alt: 'V12 Pro Wireless Earphone con iluminación RGB, vista en tres cuartos',
+  alt: 'Audífono Y12 para casco con iluminación RGB, vista en tres cuartos',
 }
 
 /** Intercomunicador grupal real (FreedConn Hero) para representar la categoría. */
@@ -123,10 +123,10 @@ export const categories: Category[] = [
   {
     id: 'exploradoras', slug: 'exploradoras', name: 'Exploradoras', eyebrow: 'Luces auxiliares para moto',
     headline: 'Elige cómo equipas tu próxima ruta.',
-    lede: 'Nueve referencias de luces exploradoras del catálogo SMART RIDE. Compara formatos, modos de luz y precio; confirma el montaje que necesita tu moto.',
-    benefit: 'Luz blanca, amarilla y mixta en formatos tipo cañón y de varios ojos.',
+    lede: 'Nueve referencias de luces exploradoras y neblineros LED del catálogo SMART RIDE. Compara formatos, modos de luz y precio; confirma el montaje que necesita tu moto.',
+    benefit: 'Luz blanca, amarilla y mixta en formatos tipo cañón, de varios ojos y kits de neblineros tipo proyector.',
     beats: [
-      { title: 'Tu formato', body: 'Diseños tipo cañón, óptica circular y opciones de dos a cinco ojos.', focus: { x: 50, y: 50, zoom: 1 } },
+      { title: 'Tu formato', body: 'Diseños tipo cañón, óptica circular, opciones de dos a cinco ojos y neblineros tipo proyector.', focus: { x: 50, y: 50, zoom: 1 } },
       { title: 'Tus opciones de luz', body: 'Blanco, amarillo y mixto; algunas referencias también nombran un modo parpadeante.', focus: { x: 50, y: 50, zoom: 1 } },
       { title: 'Tu instalación', body: '12–24 V declarados. Te ayudamos a confirmar soporte, consumo y contenido del kit.', focus: { x: 50, y: 50, zoom: 1 } },
     ],
@@ -187,31 +187,33 @@ function commercePEN(price: string) {
    =================================================================== */
 
 /**
- * V12 Motorcycle Earphone — Audífono Bluetooth para casco.
+ * Y12 — Audífono Bluetooth para casco (el Y12 Pro, intercomunicador, es otro modelo).
  * NO es intercomunicador: es un audífono individual para música y llamadas.
  * Diseño con iluminación RGB, botones hexagonales y perfil compacto.
  */
-const v12Earphone: Product = {
-  slug: 'v12-earphone',
+const y12: Product = {
+  slug: 'y12',
   category: 'intercomunicadores',
   productType: 'helmet-audio',
-  name: 'V12 Pro Motorcycle Earphone',
+  name: 'Y12',
+  // La foto disponible muestra el equipo con la serigrafía "V12".
+  referencePhoto: true,
   isDemo: false,
   badge: 'Nuevo',
   tagline: 'Tu música, tus llamadas. Tu casco.',
   summary:
     'Audífono Bluetooth diseñado para integrarse al casco de motocicleta. Iluminación RGB, botones hexagonales intuitivos y sonido envolvente para disfrutar cada ruta con tu música o atender llamadas sin distracciones.',
   theme: { bg: '#0b0c10', surface: '#15171d', scheme: 'dark' },
-  visual: v12Visual,
+  visual: y12Visual,
   highlights: [
     { title: spec('Iluminación RGB'), body: spec('Anillo de luz personalizable que destaca en la ruta.'), focus: { x: 65, y: 45, zoom: 1.4 } },
     { title: spec('Botones hexagonales'), body: spec('Controles intuitivos: volumen, micrófono y multimedia.'), focus: { x: 40, y: 55, zoom: 1.5 } },
     { title: spec('Perfil compacto'), body: spec('Diseño angular que se integra al casco sin protuberancias.'), focus: { x: 50, y: 50, zoom: 1 } },
   ],
   details: [
-    { caption: spec('Vista general del V12'), visual: v12Visual, focus: { x: 50, y: 50, zoom: 1.1 } },
-    { caption: spec('Anillo RGB y logo M'), visual: v12Visual, focus: { x: 68, y: 42, zoom: 1.7 } },
-    { caption: spec('Botones + / mic / -'), visual: v12Visual, focus: { x: 38, y: 58, zoom: 1.6 } },
+    { caption: spec('Vista general del Y12'), visual: y12Visual, focus: { x: 50, y: 50, zoom: 1.1 } },
+    { caption: spec('Anillo RGB y logo M'), visual: y12Visual, focus: { x: 68, y: 42, zoom: 1.7 } },
+    { caption: spec('Botones + / mic / -'), visual: y12Visual, focus: { x: 38, y: 58, zoom: 1.6 } },
   ],
   benefits: [
     { title: spec('Audio inmersivo'), body: spec('Drivers de 40 mm con graves profundos para música y navegación.') },
@@ -219,27 +221,27 @@ const v12Earphone: Product = {
     { title: spec('Diseño llamativo'), body: spec('Iluminación RGB que te distingue en el grupo y aumenta tu visibilidad.') },
   ],
   specs: intercomSpecs({
-    bluetooth: specPending('Valor anterior: Bluetooth 5.3. Sin fuente trazable para esta versión V12; confirmar la unidad disponible.'),
-    alcance: specPending('Valor anterior: hasta 10 m de audio desde el teléfono. Confirmar en ficha de la versión V12 disponible.'),
+    bluetooth: specPending('Valor anterior: Bluetooth 5.3. Sin fuente trazable para esta versión Y12; confirmar la unidad disponible.'),
+    alcance: specPending('Valor anterior: hasta 10 m de audio desde el teléfono. Confirmar en ficha de la versión Y12 disponible.'),
     participantes: spec('1 usuario (audífono individual)'),
     autonomiaIntercom: spec('No aplica — es audífono, no intercomunicador'),
-    autonomiaMusica: specPending('Valor anterior: hasta 12 h. Confirmar mediante manual o ficha de proveedor del V12 exacto.'),
+    autonomiaMusica: specPending('Valor anterior: hasta 12 h. Confirmar mediante manual o ficha de proveedor del Y12 exacto.'),
     carga: specPending('Valor anterior: USB-C, ~1.5 h. Confirmar conexión y tiempo de carga de la unidad.'),
-    resistencia: specPending('Valor anterior: IP55. No se encontró una ficha primaria asociable a la unidad V12 disponible.'),
+    resistencia: specPending('Valor anterior: IP55. No se encontró una ficha primaria asociable a la unidad Y12 disponible.'),
     peso: specPending('No disponible — verificar con manual'),
-    montaje: specPending('Valor anterior: clip / abrazadera. Confirmar soporte incluido para el V12 disponible.'),
-    reduccionRuido: specPending('Valor anterior: sí (pasiva). Confirmar prestaciones de audio de la versión V12.'),
+    montaje: specPending('Valor anterior: clip / abrazadera. Confirmar soporte incluido para el Y12 disponible.'),
+    reduccionRuido: specPending('Valor anterior: sí (pasiva). Confirmar prestaciones de audio de la versión Y12.'),
   }),
   gallery: [
-    { visual: v12Visual, caption: 'Vista general' },
-    { visual: v12Visual, focus: { x: 68, y: 42, zoom: 1.7 }, caption: 'Anillo RGB' },
-    { visual: v12Visual, focus: { x: 38, y: 58, zoom: 1.6 }, caption: 'Botones hexagonales' },
+    { visual: y12Visual, caption: 'Vista general' },
+    { visual: y12Visual, focus: { x: 68, y: 42, zoom: 1.7 }, caption: 'Anillo RGB' },
+    { visual: y12Visual, focus: { x: 38, y: 58, zoom: 1.6 }, caption: 'Botones hexagonales' },
     { visual: intercomHelmet, caption: 'Montado en el casco' },
   ],
   faqs: [
-    { question: '¿El V12 permite comunicarme con otro motociclista?', answer: spec('No. El V12 es un audífono Bluetooth individual para escuchar música y atender llamadas desde tu teléfono. No tiene función de intercomunicador.') },
+    { question: '¿El Y12 permite comunicarme con otro motociclista?', answer: spec('No. El Y12 es un audífono Bluetooth individual para escuchar música y atender llamadas desde tu teléfono. No tiene función de intercomunicador.') },
     { question: '¿Puedo usarlo para GPS y música al mismo tiempo?', answer: spec('Confirma con nosotros el comportamiento de audio de la versión disponible y su compatibilidad con tu teléfono.') },
-    { question: '¿Es resistente a la lluvia?', answer: spec('Consúltanos por la resistencia declarada de la unidad disponible. La clasificación IP del V12 está pendiente de confirmar.') },
+    { question: '¿Es resistente a la lluvia?', answer: spec('Consúltanos por la resistencia declarada de la unidad disponible. La clasificación IP del Y12 está pendiente de confirmar.') },
     { question: '¿Qué incluye la caja?', answer: specPending('Verificar contenido con el producto físico.') },
     { question: '¿Cómo puedo consultar precio y disponibilidad?', answer: spec('Escríbenos desde el botón de consulta y te responderemos con la información actualizada.') },
   ],
@@ -382,7 +384,7 @@ function rideSpecs(opts: {
 }
 
 const y13Pro = rideProduct({
-  slug: 'y13-pro', name: 'Y13 Pro', price: 'S/ 75.00',
+  slug: 'y13-pro', name: 'Y13 Pro', price: 'S/ 40.00',
   tagline: 'Comparte la ruta. Mantén la conexión.',
   summary: 'Disfruta de tus recorridos con comunicación entre dos motociclistas y funciones para compartir música. Una alternativa accesible para mantenerte conectado durante tus viajes.',
   specs: rideSpecs({ bluetooth: 'Bluetooth 6.0', alcance: '700 metros', participantes: '2 riders', autonomia: spec('22 horas'), proteccion: 'IP56', funciones: [{ label: 'Music Sharing', value: 'Sí' }, { label: 'Modo mixto', value: 'Sí' }] }),
@@ -410,7 +412,7 @@ const s7Pro = rideProduct({
 })
 
 const s7 = rideProduct({
-  slug: 's7', name: 'S7', price: 'S/ 75.00', productType: 'helmet-audio',
+  slug: 's7', name: 'S7', price: 'S/ 45.00', productType: 'helmet-audio',
   tagline: 'Tu música también forma parte del viaje.',
   summary: 'Disfruta de conectividad Bluetooth y funciones de audio durante tus recorridos, con un diseño pensado para integrarse con tu equipamiento.',
   specs: rideSpecs({ bluetooth: 'Bluetooth 5.4', autonomia: spec('30 horas'), proteccion: 'IP67', funciones: [{ label: 'Emparejamiento universal', value: 'Sí' }] }),
@@ -502,7 +504,7 @@ export const products: Product[] = positionCatalogue([
   s7,
   q58Max,
   p30Pro,
-  v12Earphone,
+  y12,
   ejeasQ8,
   ejeasV6ProPlus,
   ...carplayProducts,

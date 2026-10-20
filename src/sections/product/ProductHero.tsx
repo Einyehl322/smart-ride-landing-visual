@@ -74,7 +74,9 @@ export function ProductHero({ product }: { product: Product }) {
           priority
           sizes="(min-width: 1360px) 700px, (min-width: 900px) 52vw, 92vw"
           spin={product.category === 'intercomunicadores'}
-        />
+        >
+          {product.referencePhoto ? <span className="phero__ref">Imagen referencial</span> : null}
+        </ProductStage>
 
         <div className="phero__content">
           <nav className="phero__crumbs" aria-label="Ruta de navegación">

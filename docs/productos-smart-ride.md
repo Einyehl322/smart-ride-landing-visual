@@ -95,7 +95,7 @@ Cada modelo usa la foto de una publicación del mismo tipo de equipo en el merca
 | 5" Navegación | Linkifun MT11 / MT11A | — |
 | 5" + Cámaras 2K | AliExpress 5" con cámara dual | La publicación no dice 2K |
 | TPMS Kit solar | Amazon B0GTQPXY82 | — |
-| TPMS Compacto | Amazon B0CYT1QC8B (M3) | — |
+| Sensores TPMS con panel solar (reemplaza al Compacto) | Foto del propietario (19/10/2026) | — |
 
 Las fotos de origen miden entre 700 y 1600 px, así que en la ficha se ven algo suaves en pantallas grandes. Reemplazarlas por fotos propias o del proveedor en alta resolución basta con dejar el PNG en `assets-src/products/<slug>/hero.png` y ejecutar `npm run images`.
 

@@ -14,12 +14,6 @@ type Entry = {
 
 const entries: Entry[] = [
   {
-    slug: 'exploradoras-tipo-canon', name: 'Exploradoras tipo cañón', price: 89.9, lumens: 12000, format: 'Tipo cañón', modes: 4, soldOut: true,
-    tagline: 'El formato cañón, con cuatro modos de luz.', audience: 'Quienes prefieren el diseño tipo cañón y cuatro modos',
-    reason: 'Publica blanco, amarillo, mixto y parpadeante. Figura agotado en el PDF; consulta reposición antes de elegirlo.',
-    benefit: { title: 'Elige el estilo de tu montaje', body: 'El formato tipo cañón aporta una alternativa a las barras de varios ojos del catálogo.', evidence: 'Diseño tipo cañón de la fotografía del catálogo; medidas por confirmar.' },
-  },
-  {
     slug: 'exploradoras-3-ojos', name: 'Exploradoras de 3 ojos', price: 65, lumens: 8000, format: '3 ojos', modes: 3,
     tagline: 'Tres lentes. Tres formas de iluminar.', audience: 'Quienes buscan tres ojos con una inversión de entrada',
     reason: 'Por S/ 65, reúne formato de tres ojos y luz blanca, amarilla y mixta. Cuesta S/ 5 menos que la variante Compactas.',
@@ -28,8 +22,8 @@ const entries: Entry[] = [
   {
     slug: 'exploradoras-canon-10000', name: 'Exploradoras para tipo cañón', price: 85.9, lumens: 10000, format: 'Tipo cañón', modes: 4,
     tagline: 'Formato cañón para alternar tu iluminación.', audience: 'Quienes quieren formato cañón y modo parpadeante',
-    reason: 'Reúne cuatro modos nombrados y una cifra de 10,000+ lm declarados. No lleva la marca de agotado de las otras dos referencias tipo cañón.',
-    benefit: { title: 'Una alternativa tipo cañón para consultar', body: 'Encuentra el diseño tipo cañón en una referencia que no figura agotada en el PDF.', evidence: 'S/ 85.90 publicados; disponibilidad actual y contenido del kit por confirmar.' },
+    reason: 'Reúne cuatro modos nombrados y una cifra de 10,000+ lm declarados en el formato tipo cañón.',
+    benefit: { title: 'El formato tipo cañón para tu moto', body: 'Encuentra el diseño tipo cañón con cuatro modos de luz nombrados en el catálogo.', evidence: 'S/ 85.90 publicados; disponibilidad actual y contenido del kit por confirmar.' },
   },
   {
     slug: 'exploradoras-5-ojos', name: 'Exploradoras de 5 ojos', price: 85, lumens: 14000, format: '5 ojos', modes: 4, fourthModePending: true,
@@ -50,12 +44,6 @@ const entries: Entry[] = [
     benefit: { title: 'Busca el encaje para tu montaje', body: 'Compara la variante denominada Compactas con tu espacio disponible antes de equipar la moto.', evidence: 'Tres ojos y denominación Compactas en el PDF; no se publican dimensiones.' },
   },
   {
-    slug: 'luces-exploradoras-12000', name: 'Luces exploradoras', price: 85.9, lumens: 12000, format: 'Tipo cañón · foto de catálogo', modes: 4, soldOut: true,
-    tagline: 'Cuatro modos para cambiar de luz.', audience: 'Quienes consultan esta referencia de cuatro modos',
-    reason: 'Comparte fotografía, cifra de lúmenes y modos con «Exploradoras tipo cañón», a otro precio publicado. Figura agotado; confirma si cambia el kit.',
-    benefit: { title: 'Identifica la referencia antes de elegir', body: 'Conservamos su precio y nombre propios para que puedas consultar por el equipo exacto del PDF.', evidence: 'S/ 85.90. Misma imagen y funciones publicadas que Tipo cañón de S/ 89.90; diferencia de kit sin confirmar.' },
-  },
-  {
     slug: 'exploradoras-2-ojos', name: 'Exploradoras de 2 ojos ultra potentes', price: 125, lumens: 15000, format: '2 ojos', modes: 3,
     tagline: 'Dos ojos. Una propuesta de doble óptica.', audience: 'Quienes priorizan el formato de dos ojos',
     reason: 'Tiene la mayor cifra de lúmenes declarados de esta colección: 15,000+. El rendimiento y el alcance reales necesitan confirmación.',
@@ -69,7 +57,7 @@ const entries: Entry[] = [
   },
 ]
 
-export const lightingProducts: Product[] = entries.map((entry) => {
+const catalogueLights: Product[] = entries.map((entry) => {
   const photos = productPhotos(entry.slug, entry.name)
   const visual = photos[0]?.visual ?? { kind: 'render' as const, render: 'pending' as const, alt: entry.name, label: 'Fotografía pendiente' }
   const modes = entry.modes === 3 ? 'Blanco, amarillo y mixto' : entry.fourthModePending ? 'Blanco, amarillo y mixto; cuarto modo por confirmar' : 'Blanco, amarillo, mixto y parpadeante'
@@ -120,3 +108,76 @@ export const lightingProducts: Product[] = entries.map((entry) => {
     commerce: { price: spec(formatPEN(entry.price), source), promotion: null, availability: entry.soldOut ? spec('Agotado en catálogo', source) : null, buyUrl: null },
   }
 })
+
+/* ---------- Kits de neblineros (ficha facilitada por el propietario) ---------- */
+
+const kitSource = 'Ficha facilitada por el propietario el 19/10/2026.'
+const kitConditions = 'Lúmenes declarados por el fabricante, sin medición independiente; no se publican alcance en metros, consumo en W ni clasificación IP. El rango 12–24 V no garantiza compatibilidad con toda moto: confírmanos tu modelo antes de instalar.'
+
+type Kit = { slug: string; name: string; price: number; lumens: number; format: string; tagline: string; audience: string; reason: string }
+
+const kits: Kit[] = [
+  {
+    slug: 'neblineros-led-proyector', name: 'Neblineros LED tipo proyector — Kit x2', price: 180, lumens: 28000, format: 'Tipo proyector',
+    tagline: 'Seis modos de luz, blanca y amarilla, en un kit listo para instalar.',
+    audience: 'Quienes quieren la mayor cifra de lúmenes de la colección',
+    reason: 'Publica hasta 28,000 lm declarados, seis modos de luz y un kit con interruptor, cableado y soportes.',
+  },
+  {
+    slug: 'neblineros-led-doble-lente', name: 'Neblineros LED doble lente — Kit x2', price: 140, lumens: 18000, format: 'Tipo proyector · doble lente',
+    tagline: 'Doble lente y seis modos de luz, blanca y amarilla.',
+    audience: 'Quienes buscan doble lente y seis modos en un kit completo',
+    reason: 'Doble lente por unidad, seis modos de luz y hasta 18,000 lm declarados, con interruptor, cableado y soportes incluidos.',
+  },
+]
+
+const kitProducts: Product[] = kits.map((kit) => {
+  const photos = productPhotos(kit.slug, kit.name)
+  const visual = photos[0]?.visual ?? { kind: 'render' as const, render: 'pending' as const, alt: kit.name, label: 'Fotografía pendiente' }
+  const modes = 'Luz blanca, amarilla y efectos adicionales'
+  const lumens = `Hasta ${kit.lumens.toLocaleString('en-US')} lm declarados`
+  const content = 'Kit de 2 neblineros con interruptor, cableado y soportes de montaje'
+  const benefits = [
+    { title: 'Seis modos para cada tramo', body: 'Alterna entre luz blanca, amarilla y efectos adicionales según lo que necesites en la ruta.', evidence: `6 modos de iluminación: ${modes.toLowerCase()}. ${kitSource}` },
+    { title: 'Todo para instalarlos', body: 'El kit trae los dos neblineros con interruptor, cableado y soportes de montaje para tu moto.', evidence: `${content}. ${kitSource}` },
+    { title: 'Carcasa con disipación térmica', body: 'Su carcasa de aluminio incorpora disipación térmica y se alimenta con 12–24 V declarados.', evidence: `Carcasa de aluminio con disipación térmica; 12–24 V. ${kitSource}` },
+  ]
+  return {
+    slug: kit.slug, category: 'exploradoras', name: kit.name, isDemo: false,
+    lighting: { format: kit.format, lumens: kit.lumens, modeCount: 6, soldOut: false },
+    tagline: kit.tagline,
+    summary: `Kit de 2 neblineros LED tipo proyector con 6 modos de iluminación: luz blanca, amarilla y efectos adicionales. Hasta ${kit.lumens.toLocaleString('en-US')} lúmenes declarados por el fabricante, alimentación de 12–24 V y carcasa de aluminio con disipación térmica. Incluye interruptor, cableado y soportes de montaje.`,
+    positioning: { audience: kit.audience, reason: kit.reason, facts: [kit.format, '6 modos', lumens], benefits, conditions: kitConditions },
+    theme: { bg: '#ffffff', surface: '#f4f5f7', scheme: 'light' }, visual,
+    highlights: benefits.map((b, i) => ({ title: spec(b.title, b.evidence), body: spec(b.body, b.evidence), focus: { x: 50, y: 50, zoom: i === 1 ? 1.2 : 1 } })),
+    details: [], benefits: benefits.map((b) => ({ title: spec(b.title, b.evidence), body: spec(b.body, b.evidence) })),
+    specs: [
+      { group: 'Iluminación', items: [
+        { label: 'Formato', value: spec(kit.format, kitSource) },
+        { label: 'Flujo declarado', value: spec(lumens, `${kitSource} Declarado por el fabricante; sin método de medición.`) },
+        { label: 'Modos anunciados', value: spec('6 modos', kitSource) },
+        { label: 'Modos identificados', value: spec(modes, kitSource) },
+        { label: 'Alcance medido', value: specPending('La ficha no aporta metros ni medición.') },
+      ] },
+      { group: 'Instalación', items: [
+        { label: 'Voltaje declarado', value: spec('12–24 V', kitSource) },
+        { label: 'Consumo en W', value: specPending('No figura consumo eléctrico en la ficha.') },
+        { label: 'Carcasa', value: spec('Aluminio con disipación térmica', kitSource) },
+        { label: 'Clasificación IP', value: specPending('No figura clasificación IP en la ficha.') },
+        { label: 'Contenido y precio por unidad o par', value: spec(`${content}. Precio por kit.`, kitSource) },
+      ] },
+    ],
+    gallery: photos.map((p) => ({ visual: p.visual, caption: 'Fotografía del producto' })),
+    faqs: [
+      { question: '¿El precio es por unidad o por par?', answer: spec('Es por el kit: dos neblineros con interruptor, cableado y soportes de montaje.') },
+      { question: '¿Los lúmenes indican hasta dónde alumbran?', answer: spec('Son cifras declaradas por el fabricante, sin prueba de rendimiento publicada. El alcance, la distribución del haz y el consumo necesitan confirmación.') },
+      { question: '¿Son compatibles con cualquier moto?', answer: spec('Se publica alimentación de 12–24 V. Indícanos tu modelo de moto para confirmar instalación, consumo y soportes.') },
+      { question: '¿Qué modos tiene?', answer: spec('Seis modos de iluminación: luz blanca, amarilla y efectos adicionales.') },
+      { question: '¿Está disponible?', answer: spec('Consulta la disponibilidad actual por WhatsApp.') },
+    ],
+    commerce: { price: spec(formatPEN(kit.price), kitSource), promotion: null, availability: null, buyUrl: null },
+  }
+})
+
+/** Los kits ocupan el lugar de las dos referencias agotadas que se retiraron. */
+export const lightingProducts: Product[] = [kitProducts[0], ...catalogueLights.slice(0, 5), kitProducts[1], ...catalogueLights.slice(5)]

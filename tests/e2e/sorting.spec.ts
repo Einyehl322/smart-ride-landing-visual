@@ -14,7 +14,7 @@ for (const category of [
   { path: 'intercomunicadores', count: 9, originalFirst: 'y13-pro' },
   { path: 'carplay', count: 7, originalFirst: 'carplay-625-freedconn' },
   { path: 'accesorios', count: 2, originalFirst: 'tpms-kit-solar' },
-  { path: 'exploradoras', count: 9, originalFirst: 'exploradoras-tipo-canon' },
+  { path: 'exploradoras', count: 9, originalFirst: 'neblineros-led-proyector' },
 ]) {
   test(`Orden: ${category.path} empieza de menor a mayor y permite cambiar libremente`, async ({ page }) => {
     const errors = trackErrors(page)
