@@ -124,7 +124,7 @@ export function InterestListPanel({ open, onClose }: { open: boolean; onClose: (
             <button className="text-link ilist__back" onClick={() => setShowCompare(false)} autoFocus>
               <Icon name="arrow-left" /> Volver a mi selección
             </button>
-            <p className="ilist__hint">{productCategoryLabel(compared[0])} · Desliza la tabla para ver todos los modelos.</p>
+            <p className="ilist__hint">{productCategoryLabel(compared[0])} · Características alineadas para elegir tu equipo.</p>
             <div onClick={(event) => {
               if ((event.target as Element).closest('a')) closePanel()
             }}>

@@ -1,177 +1,214 @@
-/* ---------- comparador de especificaciones (claro) ---------- */
-
-.compare__scroller {
-  position: relative;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  border-radius: var(--radius-panel);
-  border: 1px solid var(--line);
-  background: var(--c-white);
-  scrollbar-width: thin;
-  scrollbar-color: #c7ccd4 transparent;
+/* Un comparador que cabe en pantalla: la página solo se recorre hacia abajo. */
+.comparison {
+  --comparison-label: 178px;
+  --comparison-grid: var(--comparison-label) repeat(var(--comparison-cols), minmax(0, 1fr));
+  min-width: 0;
+  border: 1px solid #e1e7ef;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 18px 65px -38px rgb(26 48 88 / 0.24);
 }
 
-.compare__scroller:focus-visible {
-  outline: 2px solid var(--c-accent);
-  outline-offset: 2px;
-}
+.comparison__toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.5rem; border-bottom: 1px solid #e1e7ef; border-radius: 24px 24px 0 0; background: #f7f9fc; }
+.comparison__selection { display: flex; align-items: center; gap: 0.8rem; }
+.comparison__mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: #15233a; color: #94b7ff; }
+.comparison__mark svg { width: 21px; height: 21px; }
+.comparison__selection > div { display: grid; gap: 0.2rem; }
+.comparison__selection strong { font-size: 0.91rem; font-weight: 600; letter-spacing: -0.02em; }
+.comparison__selection > div > span { color: var(--c-slate); font-size: 0.73rem; }
+.comparison__tools { display: flex; align-items: center; gap: 0.9rem; }
+.comparison__add { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; padding: 0.4rem 0.6rem; color: var(--c-accent-ink); font-size: 0.75rem; font-weight: 500; }
+.comparison__add svg { width: 16px; height: 16px; }
+.comparison__toggle { position: relative; display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px; font-size: 0.76rem; font-weight: 500; cursor: pointer; }
+.comparison__toggle input { position: absolute; z-index: 1; top: 0; left: 0; width: 36px; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.comparison__switch { width: 36px; height: 22px; flex-shrink: 0; padding: 3px; border-radius: 20px; background: #c2cad5; transition: background 180ms ease; }
+.comparison__switch::after { content: ''; display: block; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / 0.12); transition: transform 180ms ease; }
+.comparison__toggle input:checked + .comparison__switch { background: var(--c-accent); }
+.comparison__toggle input:checked + .comparison__switch::after { transform: translateX(14px); }
+.comparison__toggle input:focus-visible + .comparison__switch { outline: 3px solid #93b4ff; outline-offset: 3px; }
 
-.compare__table {
-  width: 100%;
-  min-width: 620px;
-  border-collapse: collapse;
-  font-size: var(--fs-small);
-  color: var(--c-ink-900);
-}
+.comparison__cards { display: grid; grid-template-columns: var(--comparison-grid); padding: 1.25rem 0; }
+.comparison__aside { display: flex; flex-direction: column; align-items: flex-start; gap: 1.2rem; padding: 1.5rem 1.2rem 1.5rem 1.5rem; }
+.comparison__eyebrow { color: var(--c-accent-ink); font-size: 0.62rem; line-height: 1.6; font-weight: 600; letter-spacing: 0.12em; }
+.comparison__aside > svg { width: 40px; height: 40px; color: #b8c9e5; stroke-width: 1; margin-top: 0.75rem; }
+.comparison__aside p { font-size: 1.35rem; letter-spacing: -0.04em; line-height: 1.2; }
+.comparison__aside p strong { font-weight: 600; }
+.comparison__aside > span:last-child { color: var(--c-slate); font-size: 0.69rem; line-height: 1.7; }
+.comparison__card { position: relative; min-width: 0; margin-right: 1rem; border: 1px solid #e4e9f0; border-radius: 17px; background: #fff; overflow: hidden; transition: border-color 180ms ease, box-shadow 180ms ease; }
+.comparison__card.is-lowest { border-color: #abc7ff; box-shadow: 0 4px 20px -12px rgb(37 99 235 / 0.3); }
+.comparison__card.is-current { border-color: var(--c-accent); }
+.comparison__card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.3rem; padding: 0.4rem 0.75rem 0.2rem; }
+.comparison__card-top > span { color: var(--c-slate); font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.04em; white-space: nowrap; }
+.comparison__card-top > div { display: flex; align-items: center; }
+.comparison__change { display: inline-flex; align-items: center; gap: 0.1rem; min-height: 40px; font-size: 0.7rem; font-weight: 500; color: var(--c-accent-ink); }
+.comparison__change svg { width: 14px; height: 14px; }
+.comparison__remove { display: grid; place-items: center; width: 28px; height: 40px; color: var(--c-slate); }
+.comparison__remove svg { width: 13px; height: 13px; }
+.comparison__photo { position: relative; display: block; width: 100%; height: 160px; padding: 0.7rem 1.5rem 1.4rem; background: #fff; cursor: pointer; }
+.comparison__photo .pv { width: 100%; height: 100%; transition: transform 300ms var(--ease-out); }
+.comparison__photo .pv img { object-fit: contain; }
+.comparison__photo .pv__camera { transform: none; }
+.comparison__value-badge { position: absolute; bottom: 0.1rem; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; justify-content: center; gap: 0.2rem; padding: 0.27rem 0.5rem; border-radius: 5px; background: #edf4ff; color: #1d4ed8; font-size: 0.61rem; font-weight: 500; white-space: nowrap; }
+.comparison__value-badge svg { width: 12px; height: 12px; }
+.comparison__card-body { display: flex; flex-direction: column; align-items: flex-start; padding: 1rem 1.1rem 0.2rem; }
+.comparison__name { min-height: 2.8em; font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.025em; text-wrap: pretty; }
+.comparison__name a:hover { color: var(--c-accent-ink); }
+.comparison__profile { min-height: 2.7em; margin-top: 0.25rem; color: var(--c-slate); font-size: 0.72rem; line-height: 1.35; }
+.comparison__card-body > .price { margin-top: 0.45rem; font-size: 2rem; font-weight: 600; letter-spacing: -0.045em; line-height: 1.2; }
+.comparison__card-body .price__currency { margin-right: 0.15rem; font-size: 0.5em; font-weight: 400; letter-spacing: 0; }
+.comparison__card-body .price__fraction { font-size: 0.5em; letter-spacing: -0.02em; }
+.comparison__price-gap { min-height: 2.8em; margin-top: 0.4rem; font-size: 0.64rem; line-height: 1.4; color: var(--c-slate); }
+.comparison__price-gap.is-lowest { color: var(--c-accent-ink); }
+.comparison__reference { font-size: 0.6rem; color: var(--c-slate); }
+.comparison__explore { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; width: 100%; min-height: 46px; border-top: 1px solid #edf0f5; margin-top: 0.6rem; color: var(--c-accent-ink); font-size: 0.75rem; font-weight: 500; }
+.comparison__explore svg { width: 16px; height: 16px; }
 
-.compare__table th,
-.compare__table td {
-  padding: 0.9rem 1.1rem;
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid var(--c-fog);
-}
+.comparison__common { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 1.1rem; padding: 0.9rem 1.5rem; border-block: 1px solid #e7edf5; background: #f5f8fd; }
+.comparison__common > span:first-child { font-family: var(--font-mono); color: #60728d; font-size: 0.59rem; letter-spacing: 0.08em; }
+.comparison__common > span:not(:first-child) { display: inline-flex; align-items: baseline; gap: 0.35rem; max-width: 100%; color: #43546b; font-size: 0.7rem; }
+.comparison__common svg { align-self: flex-start; flex-shrink: 0; width: 14px; height: 14px; margin-top: 0.2rem; color: var(--c-accent); }
 
-.compare__table tbody tr:last-child > * {
-  border-bottom: 0;
-}
+/* La cabecera compacta permanece visible sin crear otro contenedor de scroll. */
+.comparison .comparison__table-wrap { position: relative; overflow: visible; border: 0; border-radius: 0; background: transparent; }
+.comparison .comparison__table { display: table; table-layout: fixed; width: 100%; min-width: 0; border-collapse: separate; border-spacing: 0; font-size: 0.85rem; color: var(--c-ink-900); }
+.comparison .comparison__table thead { position: sticky; top: var(--header-h); z-index: 4; background: #f7f9fc; box-shadow: 0 5px 14px -12px #526783; }
+.ilist__comparison .comparison .comparison__table thead, .cdialog .comparison .comparison__table thead { top: 0; }
+.comparison .comparison__table tr > * { position: static; min-width: 0; max-width: none; border-right: 0; background: transparent; }
+.comparison .comparison__table th, .comparison .comparison__table td { padding: 1rem 1.25rem; text-align: left; vertical-align: middle; border-bottom: 1px solid #e9edf3; overflow-wrap: anywhere; }
+.comparison .comparison__table tr > :first-child { width: var(--comparison-label); }
+.comparison .comparison__table thead th { padding-block: 0.9rem; font-weight: 500; font-size: 0.75rem; line-height: 1.4; background: #f7f9fc; }
+.comparison .comparison__table thead th > span:first-child { display: block; }
+.comparison .comparison__table thead .price { display: block; margin-top: 0.25rem; font-size: 0.95rem; font-weight: 600; }
+.comparison .comparison__corner { color: var(--c-ink-600); }
+.comparison__corner small { display: block; margin-top: 0.3rem; color: var(--c-slate); font-size: 0.62rem; font-weight: 400; }
+.comparison .comparison__table tbody th { min-width: 0; color: #536078; font-size: 0.75rem; font-weight: 500; }
+.comparison__group { display: block; margin-bottom: 0.2rem; font-family: var(--font-mono); color: #7b89a0; font-size: 0.57rem; font-weight: 400; letter-spacing: 0.02em; }
+.comparison__row-note { display: block; margin-top: 0.3rem; font-size: 0.62rem; line-height: 1.5; font-weight: 400; color: var(--c-slate); }
+.comparison .comparison__table .is-current { background: #f1f6ff; }
+.comparison .comparison__table tbody tr:last-child > * { border-bottom: 1px solid #e9edf3; }
+.comparison .comparison__table tbody + tbody tr:first-child > * { border-top: 0; }
+.comparison__difference > td { font-weight: 500; }
+.comparison__footnote { display: flex; align-items: flex-start; gap: 0.6rem; padding: 1.1rem 1.5rem; font-size: 0.68rem; line-height: 1.65; color: var(--c-slate); }
+.comparison__footnote > svg { flex-shrink: 0; width: 17px; height: 17px; margin-top: 0.1rem; color: #8593a9; }
+.comparison .light-compare__source { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0 1.5rem 1.25rem; margin: 0; font-size: 0.75rem; }
+.comparison .fcompare__technical { margin: 0 1.25rem 1.25rem; }
+.comparison__matching td { text-align: center !important; padding: 2rem !important; color: var(--c-slate); font-size: 0.8rem; font-weight: 400; }
+.comparison__matching svg { width: 22px; height: 22px; margin: 0 auto 0.7rem; color: var(--c-accent); }
+.comparison__matching strong { font-weight: 500; color: var(--c-ink-600); }
+.compare__verification { display: block; margin-top: 0.4rem; color: var(--c-slate); font-size: 0.65rem; font-weight: 400; }
 
-.compare__table thead th {
-  font-weight: 400;
-  padding-block: 1.25rem;
-  vertical-align: bottom;
-}
-
-.compare__table tbody th {
-  font-weight: 500;
-  color: var(--c-ink-600);
-  min-width: 150px;
-  font-size: 0.9rem;
-}
+.comparison-picker { position: fixed; inset: 0; width: min(760px, calc(100vw - 2rem)); max-width: none; max-height: min(82dvh, 800px); margin: auto; padding: 0; border: 1px solid #dce4f0; border-radius: 24px; background: #fff; color: var(--c-ink-900); box-shadow: 0 30px 100px rgb(5 17 38 / 0.28); overflow: auto; overscroll-behavior: contain; }
+.comparison-picker::backdrop { background: rgb(10 20 38 / 0.56); backdrop-filter: blur(7px); }
+.comparison-picker__header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.6rem 1.6rem 1rem; }
+.comparison-picker__header .eyebrow { font-size: 0.65rem; color: var(--c-accent-ink); }
+.comparison-picker__header h3 { margin-top: 0.5rem; font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1.15; }
+.comparison-picker__header p:last-child { margin-top: 0.5rem; font-size: 0.8rem; color: var(--c-slate); }
+.comparison__icon-button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 1px solid #e1e7f0; border-radius: 50%; background: #f7f9fc; }
+.comparison__icon-button svg { width: 18px; height: 18px; }
+.comparison-picker__search { display: flex; align-items: center; gap: 0.65rem; margin: 0 1.6rem 1.1rem; padding: 0 0.9rem; min-height: 46px; border: 1px solid #dce4ef; border-radius: 10px; background: #f7f9fc; }
+.comparison-picker__search > svg { width: 17px; height: 17px; color: var(--c-slate); }
+.comparison-picker__search input { width: 100%; min-width: 0; min-height: 46px; border: 0; outline: 0; background: transparent; font: inherit; font-size: 0.85rem; }
+.comparison-picker__search:focus-within { border-color: #8db1fc; outline: 3px solid #eaf1fe; }
+.comparison-picker__list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; padding: 0 1.6rem 1.5rem; }
+.comparison-picker__option { position: relative; display: flex; align-items: center; gap: 0.8rem; min-width: 0; padding: 0.85rem; text-align: left; border: 1px solid #e1e7ef; border-radius: 13px; background: #fff; transition: border-color 160ms ease, background 160ms ease; }
+.comparison-picker__option.is-selected { border-color: #94b7ff; background: #f6f9ff; }
+.comparison-picker__option:disabled { cursor: default; background: #f8f9fb; }
+.comparison-picker__option:disabled .comparison-picker__info { opacity: 0.6; }
+.comparison-picker__photo { flex-shrink: 0; width: 78px; height: 78px; padding: 0.35rem; border-radius: 8px; background: #fff; }
+.comparison-picker__photo .pv, .comparison-picker__photo .pv__camera { width: 100%; height: 100%; }
+.comparison-picker__photo .pv img { object-fit: contain; }
+.comparison-picker__info { display: grid; gap: 0.4rem; min-width: 0; padding-right: 1rem; }
+.comparison-picker__info strong { font-size: 0.78rem; line-height: 1.4; font-weight: 500; }
+.comparison-picker__info .price { font-size: 1.1rem; font-weight: 600; }
+.comparison-picker__info > span:last-child { font-size: 0.6rem; color: var(--c-slate); }
+.comparison-picker__choose { position: absolute; top: 0.5rem; right: 0.5rem; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #edf3fd; color: var(--c-accent-ink); }
+.comparison-picker__choose svg { width: 13px; height: 13px; }
+.comparison-picker__footer { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; border-top: 1px solid #e1e7ef; background: #f7f9fc; font-size: 0.7rem; color: var(--c-slate); }
+.comparison-picker__footer svg { width: 16px; height: 16px; }
+.comparison-picker__empty { grid-column: 1 / -1; padding: 2rem 1rem; color: var(--c-slate); text-align: center; font-size: 0.85rem; }
 
 @media (hover: hover) {
-  .compare__table tbody tr:hover td,
-  .compare__table tbody tr:hover th {
-    background: var(--c-snow);
-  }
+  .comparison__card:hover { border-color: #9cbafa; box-shadow: 0 5px 22px -14px rgb(37 99 235 / 0.3); }
+  .comparison__photo:hover .pv { transform: scale(1.04); }
+  .comparison__change:hover, .comparison__explore:hover { color: #153c9c; }
+  .comparison .comparison__table tbody tr:hover > * { background: #f4f7fd; }
+  .comparison-picker__option:not(:disabled):hover { border-color: #8cb0fc; background: #f6f9ff; }
 }
 
-/* Primera columna fija al desplazar en móvil. */
-.compare__table tr > :first-child {
-  position: sticky;
-  left: 0;
-  z-index: 1;
-  background: var(--c-white);
-  border-right: 1px solid var(--c-fog);
-}
-
-.compare__table .is-current {
-  background: #f4f7fe;
-}
-
-.compare__table thead .is-current {
-  background: var(--c-accent-soft);
-  box-shadow: inset 0 3px 0 var(--c-accent);
-}
-
-.compare__product {
-  display: grid;
-  gap: 0.4rem;
-  justify-items: start;
-  min-width: 150px;
-}
-
-.compare__category {
-  color: var(--c-slate);
-  font-size: 0.75rem;
-  max-width: 22ch;
-}
-
-.compare__thumb {
-  display: block;
-  width: 112px;
-  aspect-ratio: 4 / 3;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 0.35rem;
-  transition: transform var(--dur-micro) var(--ease-out);
-}
-
-.compare__thumb:hover {
-  transform: scale(1.04);
-}
-
-.compare__thumb .pv--cover img {
-  object-fit: cover;
-}
-
-.compare__name {
-  font-weight: var(--fw-semibold);
-  font-size: 1rem;
-  letter-spacing: -0.015em;
-}
-
-.compare__here {
-  font-size: 0.78rem;
-  font-weight: var(--fw-medium);
-  color: var(--c-accent-ink);
-}
-
-.compare__group {
-  display: block;
-  font-size: 0.68rem;
-  font-weight: var(--fw-semibold);
-  letter-spacing: 0.04em;
-  color: var(--c-slate);
-  margin-bottom: 0.1rem;
-}
-
-.compare__price .price {
-  font-size: 1.1rem;
-}
-
-/* Separador entre grupos */
-.compare__table tbody + tbody tr:first-child > * {
-  border-top: 1px solid #d0d5dd;
-}
-
-.compare__legend {
-  margin-top: 0.85rem;
-  font-size: var(--fs-caption);
+@media (max-width: 1099px) {
+  .comparison { --comparison-label: 148px; }
+  .comparison__aside { padding-left: 1rem; }
+  .comparison__card { margin-right: 0.7rem; }
+  .comparison__card-body { padding-inline: 0.8rem; }
+  .comparison__photo { height: 140px; padding-inline: 1rem; }
+  .comparison__name { font-size: 0.9rem; }
+  .comparison__card-top { padding-inline: 0.5rem; }
+  .comparison .comparison__table th, .comparison .comparison__table td { padding-inline: 1rem; }
 }
 
 @media (max-width: 899px) {
-  .compare__thumb {
-    width: 84px;
-  }
-
-  .compare__table th,
-  .compare__table td {
-    padding: 0.75rem 0.85rem;
-    font-size: 0.85rem;
-  }
-
-  .compare__table tbody th {
-    min-width: 118px;
-  }
-
-  .compare__name {
-    font-size: 0.95rem;
-  }
+  .comparison { --comparison-grid: repeat(var(--comparison-cols), minmax(0, 1fr)); }
+  .comparison__aside { display: none; }
+  .comparison__cards { gap: 0.65rem; padding: 1rem; }
+  .comparison__card { margin: 0; }
+  .comparison__toolbar { padding: 1rem; }
+  .comparison__selection strong { font-size: 0.85rem; }
+  .comparison__selection > div > span { font-size: 0.68rem; }
+  .comparison__tools { flex: 1; justify-content: flex-end; }
+  .comparison .comparison__table { display: block; }
+  .comparison .comparison__table thead, .comparison .comparison__table tbody { display: block; }
+  .comparison .comparison__table tr { display: grid; grid-template-columns: var(--comparison-grid); }
+  .comparison .comparison__table thead tr { background: #f7f9fc; }
+  .comparison .comparison__table thead .comparison__corner { display: none; }
+  .comparison .comparison__table tr > :first-child { width: auto; }
+  .comparison .comparison__table tbody th { grid-column: 1 / -1; padding: 0.75rem 1rem 0.1rem; border-bottom: 0; background: #fafbfd; color: #536078; }
+  .comparison .comparison__table tbody td { padding: 0.55rem 1rem 1rem; font-size: 0.78rem; }
+  .comparison__group { display: inline; margin: 0 0.5rem 0 0; font-size: 0.55rem; }
+  .comparison .comparison__table tbody tr:last-child > th { border-bottom: 0; }
+  .comparison__row-note { max-width: 55ch; }
+  .comparison__footnote, .comparison__common { padding-inline: 1rem; }
+  .comparison .light-compare__source { padding-inline: 1rem; }
+  .comparison__matching td { grid-column: 1 / -1; }
 }
-.compare__product .product-choice { margin-block: 0.35rem; }
-.compare__verification { display: block; margin-top: 0.4rem; color: var(--c-slate); font-size: 0.68rem; font-weight: 400; }
-.light-compare__intro { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-.light-compare__intro > div { display: grid; gap: 0.4rem; }
-.light-compare__toggle { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px; padding: 0.5rem 0.85rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.8rem; }
-.light-compare__toggle input { width: 18px; height: 18px; accent-color: var(--c-accent); }
-.light-compare__common { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; margin-bottom: 1rem; padding: 1rem; background: var(--c-snow); border: 1px solid var(--line); border-radius: 12px; font-size: 0.76rem; }
-.compare__wrap--lighting .compare__product { width: 230px; }
-.compare__wrap--lighting .compare__table { width: max-content; min-width: 100%; }
-.compare__wrap--lighting .compare__table tr > :first-child { min-width: 145px; max-width: 170px; }
-.compare__wrap--lighting .compare__table td { max-width: 270px; }
-.compare__wrap--lighting .compare__table thead th { vertical-align: top; }
-.light-compare__price-gap, .light-compare__stock { font-size: 0.7rem; line-height: 1.5; color: var(--c-ink-600); }
-.light-compare__stock { color: var(--c-accent-ink); }
-.light-compare__source { margin-top: 0.8rem; font-size: 0.8rem; }
+
+@media (max-width: 639px) {
+  .comparison { border-radius: 18px; }
+  .comparison__toolbar { border-radius: 18px 18px 0 0; gap: 0.4rem; }
+  .comparison__mark { width: 36px; height: 36px; border-radius: 10px; }
+  .comparison__selection { gap: 0.6rem; }
+  .comparison__selection strong { font-size: 0.8rem; }
+  .comparison__tools { flex-basis: 100%; justify-content: flex-start; padding-left: 0.1rem; }
+  .comparison__toggle { font-size: 0.72rem; }
+  .comparison__cards { gap: 0.5rem; padding: 0.75rem; }
+  .comparison__card { border-radius: 12px; }
+  .comparison__card-top { flex-wrap: wrap; gap: 0; padding: 0.45rem 0.6rem 0; }
+  .comparison__card-top > span { font-size: 0.5rem; }
+  .comparison__change { min-height: 36px; font-size: 0.63rem; }
+  .comparison__photo { height: 108px; padding: 0.4rem 0.75rem 1.5rem; }
+  .comparison__value-badge { font-size: 0.53rem; padding: 0.2rem 0.35rem; }
+  .comparison__card-body { padding: 0.75rem 0.65rem 0.1rem; }
+  .comparison__name { min-height: 4.05em; font-size: 0.78rem; line-height: 1.35; }
+  .comparison__profile { min-height: 2.8em; font-size: 0.62rem; line-height: 1.4; }
+  .comparison__card-body > .price { font-size: 1.7rem; }
+  .comparison__price-gap { min-height: 4.2em; font-size: 0.58rem; }
+  .comparison__explore { min-height: 44px; font-size: 0.68rem; margin-top: 0.4rem; }
+  .comparison .comparison__table thead th { padding: 0.75rem; font-size: 0.64rem; }
+  .comparison .comparison__table thead .price { font-size: 0.86rem; }
+  .comparison .comparison__table tbody td { padding-inline: 0.75rem; font-size: 0.73rem; }
+  .comparison__common { gap: 0.5rem; }
+  .comparison__common > span:first-child { flex-basis: 100%; }
+  .comparison__common > span:not(:first-child) { font-size: 0.65rem; }
+  .comparison__footnote { font-size: 0.63rem; }
+  .comparison-picker { width: calc(100vw - 1rem); max-height: 88dvh; border-radius: 18px; }
+  .comparison-picker__header { padding: 1.2rem 1rem 1rem; }
+  .comparison-picker__header p:last-child { font-size: 0.75rem; }
+  .comparison-picker__search { margin-inline: 1rem; }
+  .comparison-picker__list { grid-template-columns: 1fr; padding-inline: 1rem; }
+  .comparison-picker__photo { width: 70px; height: 70px; }
+  .comparison-picker__info { padding-right: 1.25rem; }
+  .comparison-picker__footer { font-size: 0.62rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comparison *, .comparison-picker * { transition: none !important; }
+}

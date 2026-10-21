@@ -91,8 +91,8 @@ test('Beneficios: los TPMS no inventan una prestación superior por tener mayor 
   await expect(compare.getByLabel('Características compartidas')).toContainText('Presión y temperatura')
   // El modelo con panel solar publica además su duración: es la única diferencia.
   await expect(compare.locator('tbody')).toContainText('Duración')
-  await expect(compare.locator('thead')).toContainText('140.00')
-  await expect(compare.locator('thead')).toContainText('Menor precio de esta selección')
+  await expect(compare.locator('.comparison__cards')).toContainText('140.00')
+  await expect(compare.locator('.comparison__cards')).toContainText('Menor precio de esta selección')
   await page.keyboard.press('Escape')
   await page.goto('./accesorios/tpms-kit-solar')
   await expect(page.locator('.spot .product-choice__check')).toContainText('Carga solar por confirmar')

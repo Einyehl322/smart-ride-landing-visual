@@ -57,7 +57,7 @@ test.describe('Catálogo de intercomunicadores', () => {
     expect(consult).toBeLessThan(cells * 0.1)
     // Precio visible para cada modelo.
     const header = await compare.locator('thead th[scope="col"]').count()
-    await expect(compare.locator('tbody tr').first().locator('.price')).toHaveCount(header - 1)
+    await expect(compare.locator('thead .price')).toHaveCount(header - 1)
   })
 })
 

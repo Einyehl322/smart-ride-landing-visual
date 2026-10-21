@@ -78,27 +78,16 @@ test.describe('Home', () => {
   test('comparador de la home: elegir modelos actualiza la tabla', async ({ page }) => {
     await page.goto(ROUTES.home)
     const section = page.locator('#comparar-home')
-    await section.scrollIntoViewIfNeeded()
-    const table = section.getByTestId('home-compare').locator('table')
-    const columns = () => table.locator('thead th[scope="col"]').count()
-    // Esquina + modelos elegidos.
-    expect(await columns()).toBe(4)
-
-    const chips = section.locator('.cmph__chips .chip')
-    const unpressed = chips.and(page.locator('[aria-pressed="false"]'))
-    const pressed = chips.and(page.locator('[aria-pressed="true"]'))
-    // Con 3 elegidos no se puede añadir un cuarto.
-    await expect(unpressed.first()).toHaveAttribute('aria-disabled', 'true')
-    // Quitar uno deja 2 y vuelve a permitir añadir; ya no se puede bajar de 2.
-    await pressed.first().click()
-    expect(await columns()).toBe(3)
-    await expect(unpressed.first()).toHaveAttribute('aria-disabled', 'false')
-    await expect(pressed.first()).toHaveAttribute('aria-disabled', 'true')
-    await unpressed.first().click()
-    expect(await columns()).toBe(4)
-
-    await section.getByRole('button', { name: 'Pantallas CarPlay' }).click()
+    const board = section.getByTestId('comparison-board')
+    const mobile = (page.viewportSize()?.width ?? 0) < 640
+    await expect(board.locator('[data-comparison-product]')).toHaveCount(mobile ? 2 : 3)
+    await board.getByRole('button', { name: /^Cambiar modelo 1:/ }).click()
+    await page.getByRole('dialog', { name: 'Elige tu primer modelo.' }).getByRole('button', { name: 'Elegir Y13 Pro', exact: true }).click()
+    await expect(board.locator('[data-comparison-product]').first()).toHaveAttribute('data-comparison-product', 'y13-pro')
+    await expect(board.locator('thead')).toContainText('Y13 Pro')
+    await section.getByRole('button', { name: 'Pantallas CarPlay', exact: true }).click()
     await expect(section.locator('.fcompare__table')).toBeVisible()
+    await expectNoHorizontalOverflow(page)
   })
 
   test('header de escritorio: navegación principal y acceso al catálogo', async ({ page }) => {

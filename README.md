@@ -41,7 +41,7 @@ npm run test:e2e
 
 ## Despliegue
 
-GitHub Pages está configurado para desplegar mediante GitHub Actions desde `rediseno-visual`. Cada push a esa rama compila con la base `/smart-ride-landing-visual/` y publica la nueva versión. También admite ejecución manual del workflow.
+GitHub Pages despliega mediante GitHub Actions desde `main`. Cada push a `main` compila con la base `/smart-ride-landing-visual/` y publica la nueva versión. También admite ejecución manual del workflow desde esa rama. La rama `rediseno-visual` conserva el trabajo previo del rediseño.
 
 URL del sitio: https://einyehl322.github.io/smart-ride-landing-visual/
 

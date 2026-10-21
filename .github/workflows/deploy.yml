@@ -2,7 +2,7 @@ name: Desplegar en GitHub Pages
 
 on:
   push:
-    branches: [rediseno-visual]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
